@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 .appflowy-chat-content-wrap {
-  max-width: 952px;
+  max-width: 60rem;
   @apply px-8 w-full mx-auto;
 }

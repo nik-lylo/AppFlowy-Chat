@@ -2,8 +2,14 @@ import { TextField } from "@mui/material";
 import ButtonIcon from "../button-icon";
 import IconArrowUp from "@appflowy-chat/assets/icons/arrow-up.svg?react";
 import "./index.css";
+import { ChangeEvent, FC } from "react";
 
-const index = () => {
+interface IProps {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+const ChatInput: FC<IProps> = ({ onChange, value }) => {
   return (
     <div className="w-full border border-primary-gray rounded-lg focus-within:border-accent transition-colors">
       {/* prettier-ignore */}
@@ -13,6 +19,8 @@ const index = () => {
         multiline
         fullWidth
         className="appflowy-chat-input-root"
+        value={value}
+        onChange={onChange}
         
       />
       <div className="flex justify-between px-2">
@@ -21,6 +29,7 @@ const index = () => {
         </button>
         <div>
           <ButtonIcon
+            disabled={value.trim().length < 3}
             className="text-accent disabled:text-primary-gray"
             icon={<IconArrowUp className="w-full h-full" />}
           />
@@ -30,4 +39,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default ChatInput;
