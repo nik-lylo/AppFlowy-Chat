@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.appflowy-chat-content-wrap {
+  max-width: 952px;
+  @apply px-8 w-full mx-auto;
+}
