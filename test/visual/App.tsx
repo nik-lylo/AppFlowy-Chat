@@ -4,9 +4,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Chat />}></Route>
-      </Routes>
+      <div className="w-full h-screen">
+        <Routes>
+          <Route path="/" element={<Chat />}></Route>
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };

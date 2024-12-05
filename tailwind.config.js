@@ -2,7 +2,13 @@
 export default {
   content: ["./lib/**/*.{js,ts,jsx,tsx}", "./test/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        accent: {
+          DEFAULT: "#00BCF0",
+        },
+      },
+    },
   },
   plugins: [],
 };
