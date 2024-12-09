@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FC, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
 import { ChatMessage, WSData } from "@appflowy-chat/types";
@@ -22,6 +22,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const chatInputRef = useRef<HTMLInputElement>(null);
 
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setInputValue(e.target.value);
@@ -29,9 +30,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   function handleEmptyScreenOptionClick(option: string) {
     setInputValue(option);
   }
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  function handleSubmit() {
     setMessages((prev) => {
       return [
         ...prev,
@@ -49,6 +48,10 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     generateResponse(inputValue);
   }
 
+  function handleStop() {
+    console.log("STOP GENERATE");
+  }
+
   async function generateResponse(inputVal: string) {
     let generatingBodyLocal = "";
     function handleWSResponse(data: WSData) {
@@ -59,6 +62,10 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
       scrollToContainerBottom();
     }
     setIsGenerating(true);
+    setTimeout(() => {
+      scrollToContainerBottom();
+    }, 10);
+
     console.log(inputVal);
     await wait(500);
 
@@ -76,6 +83,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     ]);
     setGeneratingBody("");
     setIsGenerating(false);
+    chatInputRef.current?.focus();
   }
 
   function scrollToContainerBottom() {
@@ -104,7 +112,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
           ref={chatContainerRef}
         >
           {messages.length > 0 ? (
-            <div className="appflowy-chat-content-wrap h-full flex flex-col gap-4">
+            <div className="appflowy-chat-content-wrap min-h-full flex flex-col gap-4 pb-2">
               {messages.map((message) => {
                 if (message.author === "user") {
                   return (
@@ -130,8 +138,10 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
             <ChatInput
               onChange={handleInputChange}
               onSubmit={handleSubmit}
+              onStop={handleStop}
               isGenerating={isGenerating}
               value={inputValue}
+              ref={chatInputRef}
             />
           </div>
         </div>
