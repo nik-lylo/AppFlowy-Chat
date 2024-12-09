@@ -1,6 +1,7 @@
 import { ChatMessageAI } from "@appflowy-chat/types";
 import { FC } from "react";
-import MessageCardAvatar from "../message-card-avatar";
+import MessageResponseContent from "../message-response-content";
+import AvatarAI from "../avatar-ai";
 
 interface IProp {
   message: ChatMessageAI;
@@ -9,13 +10,13 @@ interface IProp {
 
 const MessageAI: FC<IProp> = ({ message }) => {
   return (
-    <div className="w-full flex justify-end">
-      <div className="flex gap-3 max-w-[25rem]">
-        <div className="px-4 py-2 rounded-2xl bg-[#F7F8FC] text-sm">
-          {message.body}
-        </div>
+    <div className="w-full flex">
+      <div className="flex gap-3 ">
+        <AvatarAI />
 
-        <MessageCardAvatar url={""} />
+        <div className="pt-2">
+          <MessageResponseContent body={message.body} />
+        </div>
       </div>
     </div>
   );

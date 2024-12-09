@@ -1,6 +1,6 @@
 import { ChatMessageUser } from "@appflowy-chat/types";
 import { FC } from "react";
-import MessageCardAvatar from "../message-card-avatar";
+import AvatarUser from "../avatar-user";
 
 interface IProp {
   message: ChatMessageUser;
@@ -15,7 +15,7 @@ const MessageUser: FC<IProp> = ({ message, avatar }) => {
           {message.body}
         </div>
 
-        <MessageCardAvatar url={avatar || ""} />
+        <AvatarUser url={avatar || ""} />
       </div>
     </div>
   );

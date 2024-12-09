@@ -8,6 +8,7 @@ import { wait } from "@appflowy-chat/utils/common";
 import MessageLoading from "../message-loading";
 import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
+import MessageAI from "../message-ai";
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -15,9 +16,7 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      ...MockChatMessages[0],
-    },
+    ...MockChatMessages.slice(0, 2),
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -50,31 +49,31 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   }
 
   async function generateResponse(inputVal: string) {
+    let generatingBodyLocal = "";
     function handleWSResponse(data: WSData) {
       console.log(data, "data");
       if (data.status === "update") {
         setGeneratingBody((prev) => prev + data.content);
+        generatingBodyLocal = generatingBodyLocal + data.content;
       }
     }
     setIsGenerating(true);
     console.log(inputVal);
-    setGeneratingBody("");
-    await wait(2000);
+    await wait(500);
 
     await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 100));
 
-    setMessages((prev) => {
-      return [
-        ...prev,
+    console.log(generatingBodyLocal, "GENEREATION BODY AFTER");
+    setMessages((prev) => [
+      ...prev,
 
-        {
-          author: "ai",
-          body: generatingBody,
-          created_at: Date.now(),
-          id: Date.now().toString(),
-        },
-      ];
-    });
+      {
+        author: "ai",
+        body: generatingBodyLocal,
+        created_at: Date.now(),
+        id: Date.now().toString(),
+      },
+    ]);
     setGeneratingBody("");
     setIsGenerating(false);
   }
@@ -103,7 +102,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
                     />
                   );
                 } else {
-                  return null;
+                  return <MessageAI message={message} key={message.id} />;
                 }
               })}
 
