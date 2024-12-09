@@ -4,9 +4,10 @@ import MessageCardAvatar from "../message-card-avatar";
 
 interface IProp {
   message: ChatMessageUser;
+  avatar: string | null | undefined;
 }
 
-const MessageUser: FC<IProp> = ({ message }) => {
+const MessageUser: FC<IProp> = ({ message, avatar }) => {
   return (
     <div className="w-full flex justify-end">
       <div className="flex gap-3 max-w-[25rem]">
@@ -14,7 +15,7 @@ const MessageUser: FC<IProp> = ({ message }) => {
           {message.body}
         </div>
 
-        <MessageCardAvatar url={message.user.avatar} />
+        <MessageCardAvatar url={avatar || ""} />
       </div>
     </div>
   );

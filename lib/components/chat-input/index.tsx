@@ -1,16 +1,18 @@
 import { TextField } from "@mui/material";
 import ButtonIcon from "../button-icon";
 import IconArrowUp from "@appflowy-chat/assets/icons/arrow-up.svg?react";
+import IconStop from "@appflowy-chat/assets/icons/stop.svg?react";
 import "./index.css";
 import { ChangeEvent, FC, FormEvent } from "react";
 
 interface IProps {
   value: string;
+  isGenerating: boolean;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-const ChatInput: FC<IProps> = ({ onChange, onSubmit, value }) => {
+const ChatInput: FC<IProps> = ({ onChange, onSubmit, value, isGenerating }) => {
   return (
     <form
       className="w-full border border-primary-gray rounded-lg focus-within:border-accent transition-colors"
@@ -35,7 +37,13 @@ const ChatInput: FC<IProps> = ({ onChange, onSubmit, value }) => {
           <ButtonIcon
             disabled={value.trim().length < 3}
             className="text-accent disabled:text-primary-gray"
-            icon={<IconArrowUp className="w-full h-full" />}
+            icon={
+              !isGenerating ? (
+                <IconArrowUp className="w-full h-full" />
+              ) : (
+                <IconStop className="w-full h-full" />
+              )
+            }
             type="submit"
           />
         </div>

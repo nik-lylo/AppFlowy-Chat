@@ -5,13 +5,14 @@ interface ChatMessageCommon {
 }
 export interface ChatMessageUser extends ChatMessageCommon {
   author: "user";
-  user: {
-    name: string;
-    avatar: string;
-  };
 }
 export interface ChatMessageAI extends ChatMessageCommon {
   author: "ai";
+}
+
+export interface WSData {
+  content: string;
+  status: "update" | "end";
 }
 
 export type ChatMessage = ChatMessageAI | ChatMessageUser;
