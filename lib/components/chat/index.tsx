@@ -9,6 +9,9 @@ const Chat = () => {
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setInputValue(e.target.value);
   }
+  function handleEmptyScreenOptionClick(option: string) {
+    setInputValue(option);
+  }
 
   return (
     <div className="flex-auto flex flex-col overflow-auto h-full relative ">
@@ -25,7 +28,7 @@ const Chat = () => {
           {messages.length > 0 ? (
             <div className="appflowy-chat-content-wrap h-full">Messages</div>
           ) : (
-            <ContentEmpty />
+            <ContentEmpty handleOptionClick={handleEmptyScreenOptionClick} />
           )}
         </div>
         <div className="w-full ">
