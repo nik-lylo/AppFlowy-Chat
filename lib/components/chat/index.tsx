@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
 import { ChatMessage, WSData } from "@appflowy-chat/types";
@@ -21,6 +21,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setInputValue(e.target.value);
@@ -51,19 +52,18 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   async function generateResponse(inputVal: string) {
     let generatingBodyLocal = "";
     function handleWSResponse(data: WSData) {
-      console.log(data, "data");
       if (data.status === "update") {
         setGeneratingBody((prev) => prev + data.content);
         generatingBodyLocal = generatingBodyLocal + data.content;
       }
+      scrollToContainerBottom();
     }
     setIsGenerating(true);
     console.log(inputVal);
     await wait(500);
 
-    await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 100));
+    await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 300));
 
-    console.log(generatingBodyLocal, "GENEREATION BODY AFTER");
     setMessages((prev) => [
       ...prev,
 
@@ -78,6 +78,16 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     setIsGenerating(false);
   }
 
+  function scrollToContainerBottom() {
+    if (!chatContainerRef.current) {
+      return;
+    }
+
+    chatContainerRef.current.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+    });
+  }
+
   return (
     <div className="flex-auto flex flex-col overflow-auto h-full relative ">
       <div className="absolute top-0 left-0 h-full max-h-full flex flex-col w-full ">
@@ -89,7 +99,10 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
             </button>
           </div>
         </header>
-        <div className="flex-auto w-full overflow-auto relative">
+        <div
+          className="flex-auto w-full overflow-auto relative"
+          ref={chatContainerRef}
+        >
           {messages.length > 0 ? (
             <div className="appflowy-chat-content-wrap h-full flex flex-col gap-4">
               {messages.map((message) => {

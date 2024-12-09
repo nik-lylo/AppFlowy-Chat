@@ -7,7 +7,7 @@ export async function simulateWSResponse(
 ) {
   const maxLength = renderText.length;
 
-  const workPerSend = 3;
+  const workPerSend = 6;
 
   for (let i = 0; i < maxLength; i = i + workPerSend) {
     const str = renderText.substring(i, i + workPerSend);
