@@ -16,6 +16,7 @@ const ActionBarAI: FC<IProp> = ({ rootClasses, buttons }) => {
           withDropdownIcon={btn.withDropdownIcon}
           icon={btn.icon}
           key={btn.name}
+          tooltip={btn.tooltip}
         />
       ))}
     </div>
