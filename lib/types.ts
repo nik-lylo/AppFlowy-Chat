@@ -22,4 +22,5 @@ export type ActionBarAIButtonName =
   | "try-again"
   | "change-format"
   | "switch-model"
-  | "add-to-page";
+  | "add-to-page"
+  | "download";

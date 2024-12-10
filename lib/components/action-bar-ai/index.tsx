@@ -1,10 +1,17 @@
-import { ActionBarAIButtons } from "@appflowy-chat/utils/actionBarAIButtons";
+import { ActionBarAIButtonData } from "@appflowy-chat/utils/actionBarAIButtons";
 import ButtonBarAI from "../button-bar-ai";
+import { FC } from "react";
+import clsx from "clsx";
 
-const ActionBarAI = () => {
+interface IProp {
+  rootClasses?: string;
+  buttons: ActionBarAIButtonData[];
+}
+
+const ActionBarAI: FC<IProp> = ({ rootClasses, buttons }) => {
   return (
-    <div className="pt-4 pb-8 flex gap-2">
-      {ActionBarAIButtons.map((btn) => (
+    <div className={clsx([rootClasses, "flex gap-2"])}>
+      {buttons.map((btn) => (
         <ButtonBarAI
           withDropdownIcon={btn.withDropdownIcon}
           icon={btn.icon}

@@ -16,7 +16,7 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    ...MockChatMessages.slice(0, 2),
+    ...MockChatMessages.slice(0, 4),
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
