@@ -2,13 +2,13 @@ import { ChangeEvent, FC, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
 import { ChatMessage, WSData } from "@appflowy-chat/types";
-import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 import MessageUser from "../message-user";
 import { wait } from "@appflowy-chat/utils/common";
 import MessageLoading from "../message-loading";
 import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
 import MessageAI from "../message-ai";
+import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -62,9 +62,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
       scrollToContainerBottom();
     }
     setIsGenerating(true);
-    setTimeout(() => {
-      scrollToContainerBottom();
-    }, 10);
+    scrollToContainerBottomWithDelay();
 
     console.log(inputVal);
     await wait(500);
@@ -81,6 +79,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         id: Date.now().toString(),
       },
     ]);
+    scrollToContainerBottomWithDelay();
     setGeneratingBody("");
     setIsGenerating(false);
     chatInputRef.current?.focus();
@@ -96,6 +95,11 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     });
   }
 
+  function scrollToContainerBottomWithDelay() {
+    setTimeout(() => {
+      scrollToContainerBottom();
+    }, 10);
+  }
   return (
     <div className="flex-auto flex flex-col overflow-auto h-full relative ">
       <div className="absolute top-0 left-0 h-full max-h-full flex flex-col w-full ">
@@ -112,8 +116,8 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
           ref={chatContainerRef}
         >
           {messages.length > 0 ? (
-            <div className="appflowy-chat-content-wrap min-h-full flex flex-col gap-4 pb-2">
-              {messages.map((message) => {
+            <div className="appflowy-chat-content-wrap min-h-full flex flex-col gap-4">
+              {messages.map((message, index, messages) => {
                 if (message.author === "user") {
                   return (
                     <MessageUser
@@ -123,7 +127,13 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
                     />
                   );
                 } else {
-                  return <MessageAI message={message} key={message.id} />;
+                  return (
+                    <MessageAI
+                      message={message}
+                      key={message.id}
+                      isLastResponse={index === messages.length - 1}
+                    />
+                  );
                 }
               })}
 

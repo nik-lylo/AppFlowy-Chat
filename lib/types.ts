@@ -16,3 +16,10 @@ export interface WSData {
 }
 
 export type ChatMessage = ChatMessageAI | ChatMessageUser;
+
+export type ActionBarAIButtonName =
+  | "copy"
+  | "try-again"
+  | "change-format"
+  | "switch-model"
+  | "add-to-page";
