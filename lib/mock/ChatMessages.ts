@@ -12,6 +12,7 @@ export const MockChatMessages: ChatMessage[] = [
     author: "ai",
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     created_at: 8493849348,
+    aiModel: "default",
   },
   {
     id: "3",
@@ -24,5 +25,6 @@ export const MockChatMessages: ChatMessage[] = [
     author: "ai",
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     created_at: 8493849348,
+    aiModel: "default",
   },
 ];

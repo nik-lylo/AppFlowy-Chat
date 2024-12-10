@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
-import { ChatMessage, WSData } from "@appflowy-chat/types";
+import { ChatMessage, ChatMessageAI, WSData } from "@appflowy-chat/types";
 import MessageUser from "../message-user";
 import { wait } from "@appflowy-chat/utils/common";
 import MessageLoading from "../message-loading";
@@ -9,6 +9,7 @@ import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
 import MessageAI from "../message-ai";
 import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
+import { DefaultAIModelName } from "@appflowy-chat/utils/defaultAIModelName";
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -21,6 +22,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
+
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,6 +54,20 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     console.log("STOP GENERATE");
   }
 
+  function handleMessageAIChange(data: {
+    updValue: Pick<ChatMessageAI, "aiModel">;
+    index: number;
+  }) {
+    console.log(data, "dtata");
+
+    setMessages((prevMessages) => {
+      const updMessage = prevMessages[data.index];
+
+      prevMessages[data.index] = { ...updMessage, ...data.updValue };
+      return [...prevMessages];
+    });
+  }
+
   async function generateResponse(inputVal: string) {
     let generatingBodyLocal = "";
     function handleWSResponse(data: WSData) {
@@ -77,6 +93,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         body: generatingBodyLocal,
         created_at: Date.now(),
         id: Date.now().toString(),
+        aiModel: DefaultAIModelName,
       },
     ]);
     scrollToContainerBottomWithDelay();
@@ -132,6 +149,12 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
                       message={message}
                       key={message.id}
                       isLastResponse={index === messages.length - 1}
+                      onAIModelChange={(option) =>
+                        handleMessageAIChange({
+                          index,
+                          updValue: { aiModel: option },
+                        })
+                      }
                     />
                   );
                 }
