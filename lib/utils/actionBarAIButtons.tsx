@@ -7,20 +7,30 @@ import IconDocForward from "@appflowy-chat/assets/icons/doc-forward.svg?react";
 import IconDownload from "@appflowy-chat/assets/icons/download.svg?react";
 import { ActionBarAIButtonName, SelectOption } from "@appflowy-chat/types";
 import { AIModelOptions } from "./aiModelOptions";
+import { FormatTextButtons } from "./formatTextButtons";
 
-export interface ActionBarAIButtonDataDefault {
+export interface ActionBarAIButtonDataDefault<N = string> {
   icon: ReactNode;
-  name: ActionBarAIButtonName;
+  name: N;
   tooltip: string;
 }
-export interface ActionBarAIButtonDataBtn extends ActionBarAIButtonDataDefault {
+export interface ActionBarAIButtonDataBtn<N = string>
+  extends ActionBarAIButtonDataDefault<N> {
   type: "btn";
 }
 export interface ActionBarAIButtonDataPopover
-  extends ActionBarAIButtonDataDefault {
+  extends ActionBarAIButtonDataDefault<ActionBarAIButtonName> {
   type: "btn-popover";
   withDropdownIcon: boolean;
-  options: SelectOption[];
+  optionsData:
+    | {
+        type: "text";
+        options: SelectOption[];
+      }
+    | {
+        type: "btn";
+        options: ActionBarAIButtonDataBtn[];
+      };
 }
 
 export type ActionBarAIButtonData =
@@ -41,16 +51,21 @@ const ActionBarAIButtonsCommon: ActionBarAIButtonData[] = [
     name: "change-format",
     tooltip: "Change format",
     withDropdownIcon: true,
-    options: [],
+    optionsData: {
+      options: FormatTextButtons,
+      type: "btn",
+    },
   },
   {
     type: "btn-popover",
     icon: <IconAI />,
     name: "switch-model",
-
     tooltip: "Switch model",
     withDropdownIcon: true,
-    options: AIModelOptions,
+    optionsData: {
+      options: AIModelOptions,
+      type: "text",
+    },
   },
 ];
 export const ActionBarAIButtonsLastRes: ActionBarAIButtonData[] =

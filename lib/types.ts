@@ -38,3 +38,12 @@ export type AIModelName =
   | "claude_3_sonnet"
   | "gpt_4omini"
   | "gpt_4o";
+
+export type FormatTextName =
+  | "text"
+  | "image_text"
+  | "image_only"
+  | "paragraph"
+  | "number_list"
+  | "table"
+  | "bullet_list";

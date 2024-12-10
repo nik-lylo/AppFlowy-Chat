@@ -38,8 +38,9 @@ const ActionBarAI: FC<IProp> = ({
               icon={btn.icon}
               key={btn.name}
               tooltip={btn.tooltip}
-              options={btn.options || []}
+              optionsData={btn.optionsData}
               activeOption={activeOption}
+              btnName={btn.name}
               onOptionChange={handleOnOptionChange}
             />
           );

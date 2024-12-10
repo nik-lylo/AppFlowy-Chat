@@ -3,6 +3,16 @@ export default {
   content: ["./lib/**/*.{js,ts,jsx,tsx}", "./test/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        "3e": "0.875rem",
+        "4e": "1.125rem",
+        "5e": "1.375rem",
+        "7e": "1.875rem",
+        13: "3.25rem",
+        15: "3.75rem",
+        18: "4.5rem",
+        30: "7.5rem",
+      },
       colors: {
         accent: {
           DEFAULT: "#00BCF0",

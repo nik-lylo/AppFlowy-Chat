@@ -8,12 +8,14 @@ interface Props extends ComponentProps<"button"> {
   tooltip: string;
   withDropdownIcon?: boolean;
   btnText?: string;
+  iconMainWrapClass?: string;
 }
 
 const ButtonBarAI: FC<Props> = ({
   icon,
   withDropdownIcon,
   className = "",
+  iconMainWrapClass,
   tooltip,
   btnText,
   ...rest
@@ -29,7 +31,15 @@ const ButtonBarAI: FC<Props> = ({
         data-tooltip-content="Hello world!"
         {...rest}
       >
-        <div className="w-full h-full [&>svg]:w-4 [&>svg]:h-4">{icon}</div>
+        <div
+          className={clsx(
+            iconMainWrapClass
+              ? iconMainWrapClass
+              : "w-full h-full [&>svg]:w-4 [&>svg]:h-4"
+          )}
+        >
+          {icon}
+        </div>
         {btnText && <div className="text-xs text-nowrap">{btnText}</div>}
 
         {withDropdownIcon && (
