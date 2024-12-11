@@ -4,6 +4,7 @@ import path, { resolve } from "path";
 import dts from "vite-plugin-dts";
 import tailwindcss from "tailwindcss";
 import svgr from "vite-plugin-svgr";
+import removeConsole from "vite-plugin-remove-console";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,6 +44,7 @@ export default defineConfig({
       include: "**/*.svg?react",
     }),
     dts(),
+    removeConsole(),
   ],
   css: {
     postcss: {
