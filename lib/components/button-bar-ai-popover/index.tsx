@@ -23,6 +23,7 @@ interface Props extends ComponentProps<"button"> {
   activeOption: string;
   btnName: ActionBarAIButtonName;
   onOptionChange: (value: string) => void;
+  onPopoverStateChange: (value: boolean) => void;
 }
 
 const ButtonBarAIPopover: FC<Props> = ({
@@ -31,6 +32,7 @@ const ButtonBarAIPopover: FC<Props> = ({
   optionsData,
   activeOption,
   onOptionChange,
+  onPopoverStateChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -52,13 +54,7 @@ const ButtonBarAIPopover: FC<Props> = ({
   }
 
   function handlePopoverStateChange(action: "open" | "close") {
-    const messageCard =
-      rootRef?.current?.closest<HTMLDivElement>(".message-ai");
-    if (!messageCard) {
-      return;
-    }
-
-    messageCard.dataset.popoverOpen = `${action === "open"}`;
+    onPopoverStateChange(action === "open");
   }
 
   function handleOptionChange(value: string) {

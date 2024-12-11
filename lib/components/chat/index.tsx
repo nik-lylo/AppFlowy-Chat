@@ -58,8 +58,6 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     updValue: Pick<ChatMessageAI, "aiModel">;
     index: number;
   }) {
-    console.log(data, "dtata");
-
     setMessages((prevMessages) => {
       const updMessage = prevMessages[data.index];
 

@@ -10,6 +10,7 @@ interface IProp {
   buttons: ActionBarAIButtonData[];
   aiModel: AIModelName;
   onAIModelChange?: (option: AIModelName) => void;
+  onPopoverStateChange: (value: boolean) => void;
 }
 
 const ActionBarAI: FC<IProp> = ({
@@ -17,6 +18,7 @@ const ActionBarAI: FC<IProp> = ({
   buttons,
   aiModel,
   onAIModelChange,
+  onPopoverStateChange,
 }) => {
   function handleOnOptionChange(value: string) {
     if (onAIModelChange) {
@@ -42,6 +44,7 @@ const ActionBarAI: FC<IProp> = ({
               activeOption={activeOption}
               btnName={btn.name}
               onOptionChange={handleOnOptionChange}
+              onPopoverStateChange={onPopoverStateChange}
             />
           );
         } else {

@@ -1,5 +1,5 @@
 import { AIModelName, ChatMessageAI } from "@appflowy-chat/types";
-import { FC } from "react";
+import { FC, useState } from "react";
 import MessageResponseContent from "../message-response-content";
 import AvatarAI from "../avatar-ai";
 import ActionBarAI from "../action-bar-ai";
@@ -17,13 +17,22 @@ interface IProp {
 }
 
 const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
   function handleOnAIModelChange(option: AIModelName) {
     console.log(option, "option");
     onAIModelChange(option);
   }
 
+  function handleOnPopoverStateChange(isOpen: boolean) {
+    setIsPopoverOpen(isOpen);
+  }
+
   return (
-    <div className="w-full flex group message-ai">
+    <div
+      className="w-full flex group message-ai"
+      data-popover-open={isPopoverOpen}
+    >
       <div className="flex gap-3 ">
         <AvatarAI />
 
@@ -37,6 +46,7 @@ const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
               buttons={ActionBarAIButtonsLastRes}
               aiModel={message.aiModel}
               onAIModelChange={handleOnAIModelChange}
+              onPopoverStateChange={handleOnPopoverStateChange}
             />
           ) : (
             <div className="message-ai-bar-wrap relative invisible opacity-0 group-hover:opacity-100 hover:opacity-100 group-hover:visible hover:visible transition-opacity">
@@ -46,6 +56,7 @@ const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
                 buttons={ActionBarAIButtonsHoverRes}
                 aiModel={message.aiModel}
                 onAIModelChange={handleOnAIModelChange}
+                onPopoverStateChange={handleOnPopoverStateChange}
               />
             </div>
           )}
