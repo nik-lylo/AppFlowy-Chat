@@ -30,6 +30,7 @@ export default defineConfig({
     },
     sourcemap: true,
     emptyOutDir: true,
+    outDir: resolve(__dirname, "dist"),
   },
   server: {
     port: 3100,
@@ -41,7 +42,7 @@ export default defineConfig({
     svgr({
       include: "**/*.svg?react",
     }),
-    dts({ rollupTypes: true }),
+    dts(),
   ],
   css: {
     postcss: {
