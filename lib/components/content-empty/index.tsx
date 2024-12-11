@@ -1,7 +1,12 @@
 import Logo from "@appflowy-chat/assets/logo.svg?react";
 import { ContentEmptyOptions } from "@appflowy-chat/utils/contentEmptyOptions";
+import { FC } from "react";
 
-const ContentEmpty = () => {
+interface IProps {
+  handleOptionClick: (option: string) => void;
+}
+
+const ContentEmpty: FC<IProps> = ({ handleOptionClick }) => {
   return (
     <div className="h-full flex justify-center items-center appflowy-chat-content-wrap">
       <div className="max-w-[28rem] w-full text-sm">
@@ -16,6 +21,7 @@ const ContentEmpty = () => {
             <button
               className="w-fit px-4 py-2 text-sm text-gray2 bg-white transition-colors border border-primary-dark2/10 rounded-2xl shadow-light-card hover:bg-[#F9FAFD]"
               key={option}
+              onClick={() => handleOptionClick(option)}
             >
               {option}
             </button>

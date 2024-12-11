@@ -4,6 +4,7 @@ import path, { resolve } from "path";
 import dts from "vite-plugin-dts";
 import tailwindcss from "tailwindcss";
 import svgr from "vite-plugin-svgr";
+import removeConsole from "vite-plugin-remove-console";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,6 +31,7 @@ export default defineConfig({
     },
     sourcemap: true,
     emptyOutDir: true,
+    outDir: resolve(__dirname, "dist"),
   },
   server: {
     port: 3100,
@@ -41,7 +43,8 @@ export default defineConfig({
     svgr({
       include: "**/*.svg?react",
     }),
-    dts({ rollupTypes: true }),
+    dts(),
+    removeConsole(),
   ],
   css: {
     postcss: {

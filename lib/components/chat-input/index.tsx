@@ -1,19 +1,47 @@
 import { TextField } from "@mui/material";
 import ButtonIcon from "../button-icon";
 import IconArrowUp from "@appflowy-chat/assets/icons/arrow-up.svg?react";
+import IconStop from "@appflowy-chat/assets/icons/stop.svg?react";
 import "./index.css";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from "react";
 
 interface IProps {
   value: string;
+  isGenerating: boolean;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: () => void;
+  onStop: () => void;
 }
 
-const ChatInput: FC<IProps> = ({ onChange, value }) => {
-  return (
-    <div className="w-full border border-primary-gray rounded-lg focus-within:border-accent transition-colors">
-      {/* prettier-ignore */}
-      <TextField
+const ChatInput = forwardRef<HTMLInputElement, IProps>(
+  ({ onChange, onSubmit, onStop, value, isGenerating }, ref) => {
+    function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      if (isGenerating) {
+        return;
+      }
+      onSubmit();
+    }
+    function handleOnKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+      if (e.key !== "Enter") {
+        return;
+      }
+      e.stopPropagation();
+      e.preventDefault();
+
+      if (isGenerating || value.trim().length < 3) {
+        return;
+      }
+
+      onSubmit();
+    }
+    return (
+      <form
+        className="w-full border border-primary-gray rounded-lg focus-within:border-accent transition-colors"
+        onSubmit={handleOnSubmit}
+      >
+        {/* prettier-ignore */}
+        <TextField
         id="appflowy-chat-input"
         placeholder="Ask AppFlowy AI"
         multiline
@@ -21,22 +49,37 @@ const ChatInput: FC<IProps> = ({ onChange, value }) => {
         className="appflowy-chat-input-root"
         value={value}
         onChange={onChange}
+        onKeyDown={handleOnKeyDown}
+        inputRef={ref}
+        autoFocus
+        
         
       />
-      <div className="flex justify-between px-2">
-        <button className="text-primary-gray2 p-1 text-xs">
-          Format response
-        </button>
-        <div>
-          <ButtonIcon
-            disabled={value.trim().length < 3}
-            className="text-accent disabled:text-primary-gray"
-            icon={<IconArrowUp className="w-full h-full" />}
-          />
+        <div className="flex justify-between px-2">
+          <button className="text-primary-gray2 p-1 text-xs" type="button">
+            Format response
+          </button>
+          <div className="text-accent">
+            {isGenerating ? (
+              <ButtonIcon
+                className=" disabled:text-primary-gray"
+                icon={<IconStop className="w-full h-full" />}
+                type="button"
+                onClick={onStop}
+              />
+            ) : (
+              <ButtonIcon
+                disabled={value.trim().length < 3}
+                className="disabled:text-primary-gray"
+                icon={<IconArrowUp className="w-full h-full" />}
+                type="submit"
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+      </form>
+    );
+  }
+);
 
 export default ChatInput;
