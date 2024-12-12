@@ -19,7 +19,7 @@ const ContentEmpty: FC<IProps> = ({ handleOptionClick }) => {
         <div className="flex flex-col gap-4 items-center">
           {ContentEmptyOptions.map((option) => (
             <button
-              className="w-fit px-4 py-2 text-sm text-gray2 bg-white transition-colors border border-primary-dark2/10 rounded-2xl shadow-light-card hover:bg-[#F9FAFD]"
+              className="w-fit px-4 py-2 text-sm text-gray2 bg-white transition-colors border border-primary-dark2/10 rounded-2xl shadow-light-card hover:bg-fill-active"
               key={option}
               onClick={() => handleOptionClick(option)}
             >

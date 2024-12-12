@@ -2,5 +2,5 @@
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.12);
 }
 .bar-ai-popover-btns .MuiPaper-root {
-  @apply shadow-light-menu border border-primary-dark2/[0.12] rounded-lg;
+  @apply shadow-light-menu border border-line-border2 rounded-lg;
 }

@@ -15,14 +15,29 @@ export default {
       },
       colors: {
         accent: {
-          DEFAULT: "#00BCF0",
+          DEFAULT: "var(--content-blue-400)",
         },
         primary: {
-          dark: "#171717",
-          dark2: "#1F2329",
+          dark: "var(--chat-primary-dark)",
+          dark2: "var(--chat-primary-dark2)",
           gray: "#CFD3D9",
           gray2: "#666D76",
           gray3: "#BDC2C8",
+        },
+        line: {
+          border: "var(--fill-list-hover)",
+          border2: "var(--chat-line-border)",
+          divider: "var(--chat-line-divider)",
+        },
+        icon: {
+          secondary: "var(--chat-icon-secondary)",
+          blue: "var(--chat-icon-blue)",
+        },
+        fill: {
+          active: "var(--fill-list-active)",
+          hover: "var(--fill-list-hover)",
+          "card-user": "var(--chat-card-user)",
+          tooltip: "var(--chat-tooltip)",
         },
       },
       boxShadow: {

@@ -118,7 +118,7 @@ const ButtonBarAIPopover: FC<Props> = ({
               >
                 <div>{option.name}</div>
                 {activeOption === option.value && (
-                  <IconCheck className="w-4 h-4 flex-shrink-0 text-[#00A1CE]" />
+                  <IconCheck className="w-4 h-4 flex-shrink-0 text-icon-blue" />
                 )}
               </div>
             ))}
@@ -150,7 +150,7 @@ const ButtonBarAIPopover: FC<Props> = ({
                 <React.Fragment key={option.name}>
                   {index === 3 && (
                     <div className="h-6 flex items-center">
-                      <div className="h-4 w-[1px] bg-primary-dark2/[0.08]"></div>
+                      <div className="h-4 w-[1px] bg-line-divider"></div>
                     </div>
                   )}
                   <ButtonBarAI

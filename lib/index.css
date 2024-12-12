@@ -6,3 +6,32 @@
   max-width: 60rem;
   @apply px-8 w-full mx-auto;
 }
+
+/* Light variables */
+:root {
+  --chat-primary-dark: #171717;
+  --chat-primary-dark2: #1f2329;
+  --chat-primary-gray: #cfd3d9;
+  --chat-primary-gray2: #666d76;
+  --chat-primary-gray3: #bdc2c8;
+  --chat-line-border: #1f23291f;
+  --chat-line-divider: #1f232914;
+  --chat-icon-secondary: #8f959e;
+  --chat-icon-blue: #00a1ce;
+  --chat-card-user: #f7f8fc;
+  --chat-tooltip: #1d2129;
+}
+/* Dark variables */
+:root[data-dark-mode="true"] {
+  --chat-primary-dark: #171717;
+  --chat-primary-dark2: #1f2329;
+  --chat-primary-gray: #cfd3d9;
+  --chat-primary-gray2: #666d76;
+  --chat-primary-gray3: #bdc2c8;
+  --chat-line-border: #1f23291f;
+  --chat-line-divider: #1f232914;
+  --chat-icon-secondary: #8f959e;
+  --chat-icon-blue: #00a1ce;
+  --chat-card-user: #f7f8fc;
+  --chat-tooltip: #1d2129;
+}

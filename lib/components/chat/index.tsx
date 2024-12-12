@@ -119,7 +119,9 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     <div className="flex-auto flex flex-col overflow-auto h-full relative ">
       <div className="absolute top-0 left-0 h-full max-h-full flex flex-col w-full ">
         <header className="w-full flex-none px-4 py-3 flex items-center justify-between">
-          <div className=" text-primary-dark  text-sm">Space Name... </div>
+          <div className=" text-primary-dark  text-sm">
+            <div>Space Name...</div>{" "}
+          </div>
           <div>
             <button className="py-1.5 px-3 rounded-lg text-sm text-white font-medium bg-accent">
               Share
