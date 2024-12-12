@@ -21,16 +21,17 @@ export default {
         "ch-text": {
           title: "var(--chat-text-title)",
           caption: "var(--chat-text-caption)",
+          content: "var(--chat-text-content)",
+          placeholder: "var(--chat-text-placeholder)",
+          disabled: "var(--chat-text-disabled)",
         },
         "ch-accent": {
           DEFAULT: "var(--content-blue-400)",
         },
         "ch-primary": {
-          dark: "var(--chat-primary-dark)",
           dark2: "var(--chat-primary-dark2)",
-          gray: "#CFD3D9",
-          gray2: "#666D76",
-          gray3: "#BDC2C8",
+          gray: "var(--chat-primary-gray)",
+          gray2: "var(--chat-primary-gray2)",
         },
         "ch-line": {
           border: "var(--chat-line-border)",

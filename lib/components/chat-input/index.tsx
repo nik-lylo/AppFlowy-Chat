@@ -56,7 +56,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         
       />
         <div className="flex justify-between px-2">
-          <button className="text-ch-primary-gray2 p-1 text-xs" type="button">
+          <button className="text-ch-text-caption p-1 text-xs" type="button">
             Format response
           </button>
           <div className="text-ch-accent">
@@ -70,7 +70,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
             ) : (
               <ButtonIcon
                 disabled={value.trim().length < 3}
-                className="disabled:text-ch-primary-gray"
+                className="disabled:text-ch-text-disabled"
                 icon={<IconArrowUp className="w-full h-full" />}
                 type="submit"
               />
