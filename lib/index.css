@@ -9,29 +9,45 @@
 
 /* Light variables */
 :root {
+  /* !colors */
+  --chat-bg-base: #ffffff;
+  --chat-text-title: #1f2329;
+  --chat-text-caption: #666d76;
   --chat-primary-dark: #171717;
   --chat-primary-dark2: #1f2329;
   --chat-primary-gray: #cfd3d9;
   --chat-primary-gray2: #666d76;
   --chat-primary-gray3: #bdc2c8;
-  --chat-line-border: #1f23291f;
+  --chat-line-border: #1f23291f; /* --violet-line-card */
   --chat-line-divider: #1f232914;
   --chat-icon-secondary: #8f959e;
   --chat-icon-blue: #00a1ce;
   --chat-card-user: #f7f8fc;
   --chat-tooltip: #1d2129;
+  /* !shadows */
+  --chat-shadow-card: 0px 2px 8px 2px rgba(31, 35, 41, 0.02),
+    0px 2px 4px 0px rgba(31, 35, 41, 0.02),
+    0px 1px 2px -2px rgba(31, 35, 41, 0.02);
 }
 /* Dark variables */
 :root[data-dark-mode="true"] {
+  /* !colors */
+  --chat-bg-base: #1b1a22;
+  --chat-text-title: #e7e9f2;
+  --chat-text-caption: #989aad;
   --chat-primary-dark: #171717;
   --chat-primary-dark2: #1f2329;
   --chat-primary-gray: #cfd3d9;
   --chat-primary-gray2: #666d76;
   --chat-primary-gray3: #bdc2c8;
-  --chat-line-border: #1f23291f;
+  --chat-line-border: #e7e9f214;
   --chat-line-divider: #1f232914;
   --chat-icon-secondary: #8f959e;
   --chat-icon-blue: #00a1ce;
   --chat-card-user: #f7f8fc;
   --chat-tooltip: #1d2129;
+  /* !shadows */
+  --chat-shadow-card: 0px 2px 8px 2px rgba(27, 26, 34, 0.16),
+    0px 2px 4px 0px rgba(27, 26, 34, 0.16),
+    0px 1px 2px -2px rgba(27, 26, 34, 0.08);
 }

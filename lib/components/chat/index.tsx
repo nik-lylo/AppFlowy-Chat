@@ -8,7 +8,6 @@ import MessageLoading from "../message-loading";
 import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
 import MessageAI from "../message-ai";
-import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 import { DefaultAIModelName } from "@appflowy-chat/utils/defaultAIModelName";
 
 interface IProp {
@@ -17,7 +16,7 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    ...MockChatMessages.slice(0, 4),
+    // ...MockChatMessages.slice(0, 4),
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -116,7 +115,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     }, 10);
   }
   return (
-    <div className="flex-auto flex flex-col overflow-auto h-full relative ">
+    <div className="flex-auto flex flex-col overflow-auto h-full relative bg-ch-bg-base">
       <div className="absolute top-0 left-0 h-full max-h-full flex flex-col w-full ">
         <header className="w-full flex-none px-4 py-3 flex items-center justify-between">
           <div className=" text-ch-primary-dark  text-sm">
