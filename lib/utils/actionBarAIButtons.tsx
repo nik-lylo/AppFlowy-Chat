@@ -38,18 +38,23 @@ export type ActionBarAIButtonData =
   | ActionBarAIButtonDataPopover;
 
 const ActionBarAIButtonsCommon: ActionBarAIButtonData[] = [
-  { icon: <IconCopy />, name: "copy", tooltip: "Copy", type: "btn" },
+  {
+    icon: <IconCopy />,
+    name: "copy",
+    tooltip: "chat.tooltip.copy",
+    type: "btn",
+  },
   {
     icon: <IconUndo />,
     name: "try-again",
-    tooltip: "Try again",
+    tooltip: "chat.tooltip.tryAgain",
     type: "btn",
   },
   {
     icon: <IconChangeFont />,
     type: "btn-popover",
     name: "change-format",
-    tooltip: "Change format",
+    tooltip: "chat.tooltip.changeFormat",
     withDropdownIcon: true,
     optionsData: {
       options: FormatTextButtons,
@@ -60,7 +65,7 @@ const ActionBarAIButtonsCommon: ActionBarAIButtonData[] = [
     type: "btn-popover",
     icon: <IconAI />,
     name: "switch-model",
-    tooltip: "Switch model",
+    tooltip: "chat.tooltip.switchModel",
     withDropdownIcon: true,
     optionsData: {
       options: AIModelOptions,
@@ -73,7 +78,7 @@ export const ActionBarAIButtonsLastRes: ActionBarAIButtonData[] =
     {
       icon: <IconDocForward />,
       name: "add-to-page",
-      tooltip: "Add to page",
+      tooltip: "chat.tooltip.addToPage",
       type: "btn",
     },
   ]);
@@ -83,6 +88,6 @@ export const ActionBarAIButtonsHoverRes: ActionBarAIButtonData[] =
       type: "btn",
       icon: <IconDownload />,
       name: "download",
-      tooltip: "Download",
+      tooltip: "chat.tooltip.download",
     },
   ]);

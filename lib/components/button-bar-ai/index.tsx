@@ -2,6 +2,7 @@ import { ComponentProps, FC, ReactNode } from "react";
 import clsx from "clsx";
 import IconChevron from "@appflowy-chat/assets/icons/chevron.svg?react";
 import TooltipDefault from "../tooltip-default";
+import { useTranslation } from "react-i18next";
 
 interface Props extends ComponentProps<"button"> {
   icon: ReactNode;
@@ -20,8 +21,9 @@ const ButtonBarAI: FC<Props> = ({
   btnText,
   ...rest
 }) => {
+  const { t } = useTranslation();
   return (
-    <TooltipDefault title={tooltip}>
+    <TooltipDefault title={t(tooltip)}>
       <button
         className={clsx([
           className,

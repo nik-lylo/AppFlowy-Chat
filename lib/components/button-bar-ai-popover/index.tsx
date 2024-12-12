@@ -15,6 +15,7 @@ import IconRegenerate from "@appflowy-chat/assets/icons/regenerate.svg?react";
 import "./index.css";
 import { ActionBarAIButtonDataPopover } from "@appflowy-chat/utils/actionBarAIButtons";
 import TooltipDefault from "../tooltip-default";
+import { useTranslation } from "react-i18next";
 
 interface Props extends ComponentProps<"button"> {
   icon: ReactNode;
@@ -39,6 +40,7 @@ const ButtonBarAIPopover: FC<Props> = ({
   const [shortOptionName, setShortOptionName] = useState<string>("");
 
   const rootRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     setIsOpen(true);
@@ -166,8 +168,8 @@ const ButtonBarAIPopover: FC<Props> = ({
                 </React.Fragment>
               );
             })}
-            <TooltipDefault title="Regenerate">
-              <button className="h-6 grid place-items-center flex-shrink-0">
+            <TooltipDefault title={t("chat.tooltip.regenerate")}>
+              <button className="h-6 grid place-items-center flex-shrink-0 ml-1">
                 <div className="w-4e h-4e bg-ch-accent rounded-full w-2.5 h-2.5 grid place-items-center">
                   <IconRegenerate className="w-3 h-3 text-white" />
                 </div>

@@ -13,37 +13,37 @@ export const FormatTextButtons: ActionBarAIButtonDataBtn<FormatTextName>[] = [
   {
     icon: <IconImage />,
     name: "image_only",
-    tooltip: "Image + Text",
+    tooltip: "chat.tooltip.imageOnly",
     type: "btn",
   },
   {
     icon: <IconImageText />,
     name: "image_text",
-    tooltip: "Image only",
+    tooltip: "chat.tooltip.imageText",
     type: "btn",
   },
   {
     icon: <IconParagraph />,
     name: "paragraph",
-    tooltip: "Paragraph",
+    tooltip: "chat.tooltip.paragraph",
     type: "btn",
   },
   {
     icon: <IconBulletList />,
     name: "bullet_list",
-    tooltip: "Bullet list",
+    tooltip: "chat.tooltip.bulletList",
     type: "btn",
   },
   {
     icon: <IconNumList />,
     name: "number_list",
-    tooltip: "Number list",
+    tooltip: "chat.tooltip.numList",
     type: "btn",
   },
   {
     icon: <IconTable />,
     name: "table",
-    tooltip: "Table",
+    tooltip: "chat.tooltip.table",
     type: "btn",
   },
 ];

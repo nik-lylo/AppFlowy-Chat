@@ -2,8 +2,9 @@ import { TextField } from "@mui/material";
 import ButtonIcon from "../button-icon";
 import IconArrowUp from "@appflowy-chat/assets/icons/arrow-up.svg?react";
 import IconStop from "@appflowy-chat/assets/icons/stop.svg?react";
-import "./index.css";
 import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from "react";
+import "./index.css";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   value: string;
@@ -15,6 +16,8 @@ interface IProps {
 
 const ChatInput = forwardRef<HTMLInputElement, IProps>(
   ({ onChange, onSubmit, onStop, value, isGenerating }, ref) => {
+    const { t } = useTranslation();
+
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (isGenerating) {
@@ -43,7 +46,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         {/* prettier-ignore */}
         <TextField
         id="appflowy-chat-input"
-        placeholder="Ask AppFlowy AI"
+        placeholder={t('chat.input.placeholder')}
         multiline
         fullWidth
         className="appflowy-chat-input-root"
@@ -57,7 +60,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       />
         <div className="flex justify-between px-2">
           <button className="text-ch-text-caption p-1 text-xs" type="button">
-            Format response
+            {t("chat.input.button.format")}
           </button>
           <div className="text-ch-accent">
             {isGenerating ? (

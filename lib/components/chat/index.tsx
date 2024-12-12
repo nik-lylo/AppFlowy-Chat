@@ -9,6 +9,7 @@ import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
 import MessageAI from "../message-ai";
 import { DefaultAIModelName } from "@appflowy-chat/utils/defaultAIModelName";
+import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -16,7 +17,7 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    // ...MockChatMessages.slice(0, 4),
+    ...MockChatMessages.slice(0, 4),
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
