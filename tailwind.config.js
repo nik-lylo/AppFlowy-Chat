@@ -14,26 +14,26 @@ export default {
         30: "7.5rem",
       },
       colors: {
-        accent: {
+        "ch-accent": {
           DEFAULT: "var(--content-blue-400)",
         },
-        primary: {
+        "ch-primary": {
           dark: "var(--chat-primary-dark)",
           dark2: "var(--chat-primary-dark2)",
           gray: "#CFD3D9",
           gray2: "#666D76",
           gray3: "#BDC2C8",
         },
-        line: {
+        "ch-line": {
           border: "var(--fill-list-hover)",
           border2: "var(--chat-line-border)",
           divider: "var(--chat-line-divider)",
         },
-        icon: {
+        "ch-icon": {
           secondary: "var(--chat-icon-secondary)",
           blue: "var(--chat-icon-blue)",
         },
-        fill: {
+        "ch-fill": {
           active: "var(--fill-list-active)",
           hover: "var(--fill-list-hover)",
           "card-user": "var(--chat-card-user)",

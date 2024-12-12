@@ -37,7 +37,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
     }
     return (
       <form
-        className="w-full border border-primary-gray rounded-lg focus-within:border-accent transition-colors"
+        className="w-full border border-ch-primary-gray rounded-lg focus-within:border-ch-accent transition-colors"
         onSubmit={handleOnSubmit}
       >
         {/* prettier-ignore */}
@@ -56,13 +56,13 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         
       />
         <div className="flex justify-between px-2">
-          <button className="text-primary-gray2 p-1 text-xs" type="button">
+          <button className="text-ch-primary-gray2 p-1 text-xs" type="button">
             Format response
           </button>
-          <div className="text-accent">
+          <div className="text-ch-accent">
             {isGenerating ? (
               <ButtonIcon
-                className=" disabled:text-primary-gray"
+                className=" disabled:text-ch-primary-gray"
                 icon={<IconStop className="w-full h-full" />}
                 type="button"
                 onClick={onStop}
@@ -70,7 +70,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
             ) : (
               <ButtonIcon
                 disabled={value.trim().length < 3}
-                className="disabled:text-primary-gray"
+                className="disabled:text-ch-primary-gray"
                 icon={<IconArrowUp className="w-full h-full" />}
                 type="submit"
               />

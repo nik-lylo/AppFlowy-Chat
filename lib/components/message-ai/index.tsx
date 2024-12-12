@@ -52,7 +52,7 @@ const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
             <div className="message-ai-bar-wrap relative invisible opacity-0 group-hover:opacity-100 hover:opacity-100 group-hover:visible hover:visible transition-opacity">
               <div className="absolute top-0 left-0 w-full h-2"></div>
               <ActionBarAI
-                rootClasses="absolute top-2 left-0 p-0.5 rounded-lg border border-line-border2 shadow-light-menu"
+                rootClasses="absolute top-2 left-0 p-0.5 rounded-lg border border-ch-line-border2 shadow-light-menu"
                 buttons={ActionBarAIButtonsHoverRes}
                 aiModel={message.aiModel}
                 onAIModelChange={handleOnAIModelChange}

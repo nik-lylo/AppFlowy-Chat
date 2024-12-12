@@ -112,13 +112,13 @@ const ButtonBarAIPopover: FC<Props> = ({
           <div className="bg-white p-2">
             {optionsData.options.map((option) => (
               <div
-                className="py-1 px-1.5 text-sm text-primary-dark tracking-wide w-full min-w-52 flex justify-between cursor-pointer"
+                className="py-1 px-1.5 text-sm text-ch-primary-dark tracking-wide w-full min-w-52 flex justify-between cursor-pointer"
                 key={option.value}
                 onClick={() => handleOptionChange(option.value)}
               >
                 <div>{option.name}</div>
                 {activeOption === option.value && (
-                  <IconCheck className="w-4 h-4 flex-shrink-0 text-icon-blue" />
+                  <IconCheck className="w-4 h-4 flex-shrink-0 text-ch-icon-blue" />
                 )}
               </div>
             ))}
@@ -150,7 +150,7 @@ const ButtonBarAIPopover: FC<Props> = ({
                 <React.Fragment key={option.name}>
                   {index === 3 && (
                     <div className="h-6 flex items-center">
-                      <div className="h-4 w-[1px] bg-line-divider"></div>
+                      <div className="h-4 w-[1px] bg-ch-line-divider"></div>
                     </div>
                   )}
                   <ButtonBarAI
@@ -168,7 +168,7 @@ const ButtonBarAIPopover: FC<Props> = ({
             })}
             <TooltipDefault title="Regenerate">
               <button className="h-6 grid place-items-center flex-shrink-0">
-                <div className="w-4e h-4e bg-accent rounded-full w-2.5 h-2.5 grid place-items-center">
+                <div className="w-4e h-4e bg-ch-accent rounded-full w-2.5 h-2.5 grid place-items-center">
                   <IconRegenerate className="w-3 h-3 text-white" />
                 </div>
               </button>

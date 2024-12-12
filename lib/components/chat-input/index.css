@@ -3,8 +3,8 @@
 }
 
 .appflowy-chat-input-root .MuiInputBase-root {
-  @apply text-sm px-3 pt-3 pb-1 text-primary-dark;
+  @apply text-sm px-3 pt-3 pb-1 text-ch-primary-dark;
 }
 .appflowy-chat-input-root .MuiInputBase-input::placeholder {
-  @apply text-primary-gray3;
+  @apply text-ch-primary-gray3;
 }

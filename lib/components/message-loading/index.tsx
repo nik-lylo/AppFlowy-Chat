@@ -17,7 +17,7 @@ const MessageLoading: FC<IProp> = ({ body }) => {
           {body ? (
             <MessageResponseContent body={body} />
           ) : (
-            <div className="text-primary-gray2 flex gap-2 items-center text-sm">
+            <div className="text-ch-primary-gray2 flex gap-2 items-center text-sm">
               <div>Working on it</div>
               <LoaderDots />
             </div>
