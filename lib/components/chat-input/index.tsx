@@ -6,6 +6,8 @@ import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from "react";
 import "./index.css";
 import { useTranslation } from "react-i18next";
 import { ResponseFormatMode } from "@appflowy-chat/types";
+import FormatBarOptions from "../format-bar-options";
+import { FormatTextButtons } from "@appflowy-chat/utils/formatTextButtons";
 
 interface IProps {
   value: string;
@@ -62,13 +64,20 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
     }
     return (
       <form
-        className="w-full border border-ch-primary-gray rounded-lg focus-within:border-ch-accent transition-colors"
+        className="w-full border border-ch-primary-gray rounded-lg focus-within:border-ch-accent transition-colors appflowy-chat-input-wrap"
         onSubmit={handleOnSubmit}
+        data-format-mode={formatMode}
       >
+        {formatMode === "custom" && (
+          <div className="p-1">
+            <FormatBarOptions options={FormatTextButtons}></FormatBarOptions>
+          </div>
+        )}
+
         {/* prettier-ignore */}
         <TextField
         id="appflowy-chat-input"
-        placeholder={t('chat.input.placeholder')}
+        placeholder={formatMode === 'auto'?t('chat.input.placeholder'):t('chat.input.placeholderFormat')}
         multiline
         fullWidth
         className="appflowy-chat-input-root"
@@ -80,7 +89,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         
         
       />
-        <div className="flex justify-between px-2">
+        <div className="flex justify-between px-2 pt-0.5">
           <div className="flex items-end pb-0.5">
             <button
               className="rounded text-ch-text-caption h-fit p-1 text-xs transition-colors bg-transparent hover:bg-ch-fill-hover flex"
@@ -95,15 +104,17 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
           <div className="text-ch-accent">
             {isGenerating ? (
               <ButtonIcon
-                className=" disabled:text-ch-primary-gray"
+                className="disabled:text-ch-primary-gray"
+                classSize="w-5 h-5"
                 icon={<IconStop className="w-full h-full" />}
                 type="button"
                 onClick={onStop}
               />
             ) : (
               <ButtonIcon
-                disabled={value.trim().length < 3}
                 className="disabled:text-ch-text-disabled"
+                classSize="w-5 h-5"
+                disabled={value.trim().length < 3}
                 icon={<IconArrowUp className="w-full h-full" />}
                 type="submit"
               />

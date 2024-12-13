@@ -16,6 +16,7 @@ import "./index.css";
 import { ActionBarAIButtonDataPopover } from "@appflowy-chat/utils/actionBarAIButtons";
 import TooltipDefault from "../tooltip-default";
 import { useTranslation } from "react-i18next";
+import FormatBarOptions from "../format-bar-options";
 
 interface Props extends ComponentProps<"button"> {
   icon: ReactNode;
@@ -146,28 +147,10 @@ const ButtonBarAIPopover: FC<Props> = ({
           }}
           closeAfterTransition={true}
         >
-          <div className="py-0.5 px-1 flex gap-1 ">
-            {optionsData.options.map((option, index) => {
-              return (
-                <React.Fragment key={option.name}>
-                  {index === 3 && (
-                    <div className="h-6 flex items-center">
-                      <div className="h-4 w-[1px] bg-ch-line-divider"></div>
-                    </div>
-                  )}
-                  <ButtonBarAI
-                    icon={option.icon}
-                    tooltip={option.tooltip}
-                    iconMainWrapClass={
-                      option.name === "image_text"
-                        ? "relative w-[1.56rem] h-full [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2  [&>svg]:w-[1.56rem] [&>svg]:h-[1.31rem]"
-                        : undefined
-                    }
-                    // onClick={handleClick}
-                  />
-                </React.Fragment>
-              );
-            })}
+          <FormatBarOptions
+            options={optionsData.options}
+            className="py-0.5 px-1"
+          >
             <TooltipDefault title={t("chat.tooltip.regenerate")}>
               <button className="h-6 grid place-items-center flex-shrink-0 ml-1">
                 <div className="w-4e h-4e bg-ch-accent rounded-full w-2.5 h-2.5 grid place-items-center">
@@ -175,7 +158,7 @@ const ButtonBarAIPopover: FC<Props> = ({
                 </div>
               </button>
             </TooltipDefault>
-          </div>
+          </FormatBarOptions>
         </Popover>
       )}
     </div>

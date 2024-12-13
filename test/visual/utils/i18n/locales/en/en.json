@@ -11,6 +11,7 @@
     },
     "input": {
       "placeholder": "Ask AppFlowy AI",
+      "placeholderFormat": "AI response will generate with the format you define above",
       "button": {
         "format": "Format response",
         "auto": "Auto"

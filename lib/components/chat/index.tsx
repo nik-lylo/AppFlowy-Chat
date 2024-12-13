@@ -26,7 +26,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [responseFormatMode, setResponseFormatMode] =
-    useState<ResponseFormatMode>("auto");
+    useState<ResponseFormatMode>("custom");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
 
