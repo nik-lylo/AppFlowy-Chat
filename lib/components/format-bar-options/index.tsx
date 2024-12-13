@@ -6,14 +6,21 @@ import clsx from "clsx";
 interface IProp extends ComponentProps<"div"> {
   options: ActionBarAIButtonDataBtn[];
   children?: ReactElement;
+  onOptionChange?: (value: string) => void;
 }
 
 const FormatBarOptions: FC<IProp> = ({
   options,
   children = null,
   className = "",
+  onOptionChange,
   ...rest
 }) => {
+  function handleOptionChange(value: string) {
+    if (onOptionChange) {
+      onOptionChange(value);
+    }
+  }
   return (
     <div className={clsx([" flex gap-1", className])} {...rest}>
       {options.map((option, index) => {
@@ -32,7 +39,9 @@ const FormatBarOptions: FC<IProp> = ({
                   ? "relative w-[1.56rem] h-full [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2  [&>svg]:w-[1.56rem] [&>svg]:h-[1.31rem]"
                   : undefined
               }
-              // onClick={handleClick}
+              onClick={() => {
+                handleOptionChange(option.name);
+              }}
             />
           </React.Fragment>
         );

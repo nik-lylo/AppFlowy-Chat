@@ -5,16 +5,18 @@ import IconStop from "@appflowy-chat/assets/icons/stop.svg?react";
 import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from "react";
 import "./index.css";
 import { useTranslation } from "react-i18next";
-import { ResponseFormatMode } from "@appflowy-chat/types";
+import { ResponseFormatMode, ResponseFormatType } from "@appflowy-chat/types";
 import FormatBarOptions from "../format-bar-options";
 import { FormatTextButtons } from "@appflowy-chat/utils/formatTextButtons";
 
 interface IProps {
   value: string;
-  formatMode: ResponseFormatMode;
   isGenerating: boolean;
+  formatMode: ResponseFormatMode;
+  formatType: ResponseFormatType;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeFormatMode: (value: ResponseFormatMode) => void;
+  onChangeFormatType: (value: ResponseFormatType) => void;
   onSubmit: () => void;
   onStop: () => void;
 }
@@ -22,13 +24,14 @@ interface IProps {
 const ChatInput = forwardRef<HTMLInputElement, IProps>(
   (
     {
-      onChange,
-      onSubmit,
       onStop,
       value,
       isGenerating,
       formatMode,
+      onChange,
+      onSubmit,
       onChangeFormatMode,
+      onChangeFormatType,
     },
     ref
   ) => {
@@ -62,6 +65,11 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         onChangeFormatMode("custom");
       }
     }
+
+    function handleClickFormatTypeOption(value: string) {
+      onChangeFormatType(value as ResponseFormatType);
+    }
+
     return (
       <form
         className="w-full border border-ch-primary-gray rounded-lg focus-within:border-ch-accent transition-colors appflowy-chat-input-wrap"
@@ -70,7 +78,10 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       >
         {formatMode === "custom" && (
           <div className="p-1">
-            <FormatBarOptions options={FormatTextButtons}></FormatBarOptions>
+            <FormatBarOptions
+              options={FormatTextButtons}
+              onOptionChange={handleClickFormatTypeOption}
+            ></FormatBarOptions>
           </div>
         )}
 

@@ -5,6 +5,7 @@ import {
   ChatMessage,
   ChatMessageAI,
   ResponseFormatMode,
+  ResponseFormatType,
   WSData,
 } from "@appflowy-chat/types";
 import MessageUser from "../message-user";
@@ -27,6 +28,8 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   const [inputValue, setInputValue] = useState("");
   const [responseFormatMode, setResponseFormatMode] =
     useState<ResponseFormatMode>("custom");
+  const [responseFormatType, setResponseFormatType] =
+    useState<ResponseFormatType>("text");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
 
@@ -62,6 +65,9 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   }
   function handleChangeFormatMode(value: ResponseFormatMode) {
     setResponseFormatMode(value);
+  }
+  function handleChangeFormatType(value: ResponseFormatType) {
+    setResponseFormatType(value);
   }
 
   function handleMessageAIChange(data: {
@@ -181,10 +187,12 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
             <ChatInput
               value={inputValue}
               formatMode={responseFormatMode}
+              formatType={responseFormatType}
               onChange={handleInputChange}
               onSubmit={handleSubmit}
               onStop={handleStop}
               onChangeFormatMode={handleChangeFormatMode}
+              onChangeFormatType={handleChangeFormatType}
               isGenerating={isGenerating}
               ref={chatInputRef}
             />

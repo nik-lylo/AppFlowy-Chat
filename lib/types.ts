@@ -39,7 +39,7 @@ export type AIModelName =
   | "gpt_4omini"
   | "gpt_4o";
 
-export type FormatTextName =
+export type ResponseFormatType =
   | "text"
   | "image_text"
   | "image_only"

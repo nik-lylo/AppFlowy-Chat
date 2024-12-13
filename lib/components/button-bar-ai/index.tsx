@@ -31,6 +31,7 @@ const ButtonBarAI: FC<Props> = ({
         ])}
         data-tooltip-id="base-tooltip"
         data-tooltip-content="Hello world!"
+        type="button"
         {...rest}
       >
         <div
