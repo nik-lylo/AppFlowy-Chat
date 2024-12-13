@@ -12,7 +12,8 @@
     "input": {
       "placeholder": "Ask AppFlowy AI",
       "button": {
-        "format": "Format response"
+        "format": "Format response",
+        "auto": "Auto"
       }
     },
     "tooltip": {

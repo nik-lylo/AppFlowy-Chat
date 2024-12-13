@@ -5,17 +5,31 @@ import IconStop from "@appflowy-chat/assets/icons/stop.svg?react";
 import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from "react";
 import "./index.css";
 import { useTranslation } from "react-i18next";
+import { ResponseFormatMode } from "@appflowy-chat/types";
 
 interface IProps {
   value: string;
+  formatMode: ResponseFormatMode;
   isGenerating: boolean;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeFormatMode: (value: ResponseFormatMode) => void;
   onSubmit: () => void;
   onStop: () => void;
 }
 
 const ChatInput = forwardRef<HTMLInputElement, IProps>(
-  ({ onChange, onSubmit, onStop, value, isGenerating }, ref) => {
+  (
+    {
+      onChange,
+      onSubmit,
+      onStop,
+      value,
+      isGenerating,
+      formatMode,
+      onChangeFormatMode,
+    },
+    ref
+  ) => {
     const { t } = useTranslation();
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
@@ -38,6 +52,14 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
 
       onSubmit();
     }
+
+    function handleClickFormatModeButton() {
+      if (formatMode === "custom") {
+        onChangeFormatMode("auto");
+      } else {
+        onChangeFormatMode("custom");
+      }
+    }
     return (
       <form
         className="w-full border border-ch-primary-gray rounded-lg focus-within:border-ch-accent transition-colors"
@@ -59,9 +81,17 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         
       />
         <div className="flex justify-between px-2">
-          <button className="text-ch-text-caption p-1 text-xs" type="button">
-            {t("chat.input.button.format")}
-          </button>
+          <div className="flex items-end pb-0.5">
+            <button
+              className="rounded text-ch-text-caption h-fit p-1 text-xs transition-colors bg-transparent hover:bg-ch-fill-hover flex"
+              type="button"
+              onClick={handleClickFormatModeButton}
+            >
+              {formatMode === "auto"
+                ? t("chat.input.button.format")
+                : t("chat.input.button.auto")}
+            </button>
+          </div>
           <div className="text-ch-accent">
             {isGenerating ? (
               <ButtonIcon

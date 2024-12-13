@@ -1,7 +1,12 @@
 import { ChangeEvent, FC, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
-import { ChatMessage, ChatMessageAI, WSData } from "@appflowy-chat/types";
+import {
+  ChatMessage,
+  ChatMessageAI,
+  ResponseFormatMode,
+  WSData,
+} from "@appflowy-chat/types";
 import MessageUser from "../message-user";
 import { wait } from "@appflowy-chat/utils/common";
 import MessageLoading from "../message-loading";
@@ -20,6 +25,8 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     ...MockChatMessages.slice(0, 4),
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [responseFormatMode, setResponseFormatMode] =
+    useState<ResponseFormatMode>("auto");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
 
@@ -52,6 +59,9 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
 
   function handleStop() {
     console.log("STOP GENERATE");
+  }
+  function handleChangeFormatMode(value: ResponseFormatMode) {
+    setResponseFormatMode(value);
   }
 
   function handleMessageAIChange(data: {
@@ -169,11 +179,13 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         <div className="w-full ">
           <div className="appflowy-chat-content-wrap pb-4 pt-2">
             <ChatInput
+              value={inputValue}
+              formatMode={responseFormatMode}
               onChange={handleInputChange}
               onSubmit={handleSubmit}
               onStop={handleStop}
+              onChangeFormatMode={handleChangeFormatMode}
               isGenerating={isGenerating}
-              value={inputValue}
               ref={chatInputRef}
             />
           </div>

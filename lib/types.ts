@@ -47,3 +47,5 @@ export type FormatTextName =
   | "number_list"
   | "table"
   | "bullet_list";
+
+export type ResponseFormatMode = "custom" | "auto";
