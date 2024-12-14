@@ -23,11 +23,11 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    ...MockChatMessages.slice(0, 4),
+    ...MockChatMessages.slice(0, 0),
   ]);
   const [inputValue, setInputValue] = useState("");
   const [responseFormatMode, setResponseFormatMode] =
-    useState<ResponseFormatMode>("custom");
+    useState<ResponseFormatMode>("auto");
   const [responseFormatType, setResponseFormatType] =
     useState<ResponseFormatType>("text");
   const [isGenerating, setIsGenerating] = useState(false);
