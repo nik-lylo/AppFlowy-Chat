@@ -1,5 +1,5 @@
 import { Popover } from "@mui/material";
-import React, {
+import {
   ComponentProps,
   FC,
   MouseEvent,
@@ -150,6 +150,7 @@ const ButtonBarAIPopover: FC<Props> = ({
           <FormatBarOptions
             options={optionsData.options}
             className="py-0.5 px-1"
+            activeOption={activeOption}
           >
             <TooltipDefault title={t("chat.tooltip.regenerate")}>
               <button className="h-6 grid place-items-center flex-shrink-0 ml-1">

@@ -6,12 +6,15 @@ import clsx from "clsx";
 interface IProp extends ComponentProps<"div"> {
   options: ActionBarAIButtonDataBtn[];
   children?: ReactElement;
+  activeOption: string;
+
   onOptionChange?: (value: string) => void;
 }
 
 const FormatBarOptions: FC<IProp> = ({
   options,
   children = null,
+  activeOption,
   className = "",
   onOptionChange,
   ...rest
@@ -34,6 +37,7 @@ const FormatBarOptions: FC<IProp> = ({
             <ButtonBarAI
               icon={option.icon}
               tooltip={option.tooltip}
+              active={activeOption === option.name}
               iconMainWrapClass={
                 option.name === "image_text"
                   ? "relative w-[1.56rem] h-full [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2  [&>svg]:w-[1.56rem] [&>svg]:h-[1.31rem]"

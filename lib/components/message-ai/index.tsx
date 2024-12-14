@@ -44,7 +44,7 @@ const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
             <ActionBarAI
               rootClasses="pt-4 pb-8"
               buttons={ActionBarAIButtonsLastRes}
-              aiModel={message.aiModel}
+              message={message}
               onAIModelChange={handleOnAIModelChange}
               onPopoverStateChange={handleOnPopoverStateChange}
             />
@@ -54,7 +54,7 @@ const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
               <ActionBarAI
                 rootClasses="absolute top-2 left-0 p-0.5 rounded-lg border border-ch-line-border shadow-light-menu"
                 buttons={ActionBarAIButtonsHoverRes}
-                aiModel={message.aiModel}
+                message={message}
                 onAIModelChange={handleOnAIModelChange}
                 onPopoverStateChange={handleOnPopoverStateChange}
               />

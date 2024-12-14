@@ -28,6 +28,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       value,
       isGenerating,
       formatMode,
+      formatType,
       onChange,
       onSubmit,
       onChangeFormatMode,
@@ -79,6 +80,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         {formatMode === "custom" && (
           <div className="p-1">
             <FormatBarOptions
+              activeOption={formatType}
               options={FormatTextButtons}
               onOptionChange={handleClickFormatTypeOption}
             ></FormatBarOptions>

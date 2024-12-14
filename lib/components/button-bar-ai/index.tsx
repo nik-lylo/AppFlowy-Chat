@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 interface Props extends ComponentProps<"button"> {
   icon: ReactNode;
   tooltip: string;
+  active?: boolean;
   withDropdownIcon?: boolean;
   btnText?: string;
   iconMainWrapClass?: string;
@@ -17,6 +18,7 @@ const ButtonBarAI: FC<Props> = ({
   withDropdownIcon,
   className = "",
   iconMainWrapClass,
+  active = false,
   tooltip,
   btnText,
   ...rest
@@ -28,6 +30,7 @@ const ButtonBarAI: FC<Props> = ({
         className={clsx([
           className,
           "flex items-center gap-[1px] h-6 p-1 text-ch-primary-gray2 rounded-lg hover:bg-ch-fill-hover transition-colors",
+          { ["bg-ch-fill-hover"]: active },
         ])}
         data-tooltip-id="base-tooltip"
         data-tooltip-content="Hello world!"

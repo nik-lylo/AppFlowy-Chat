@@ -9,6 +9,7 @@ export interface ChatMessageUser extends ChatMessageCommon {
 export interface ChatMessageAI extends ChatMessageCommon {
   author: "ai";
   aiModel: AIModelName;
+  formatType: ResponseFormatType | "auto";
 }
 
 export interface WSData {

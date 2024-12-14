@@ -99,6 +99,9 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
 
     await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 300));
 
+    const responseFormatTypeLocal: ChatMessageAI["formatType"] =
+      responseFormatMode === "auto" ? "auto" : responseFormatType;
+
     setMessages((prev) => [
       ...prev,
 
@@ -108,6 +111,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         created_at: Date.now(),
         id: Date.now().toString(),
         aiModel: DefaultAIModelName,
+        formatType: responseFormatTypeLocal,
       },
     ]);
     scrollToContainerBottomWithDelay();
