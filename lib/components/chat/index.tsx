@@ -1,15 +1,21 @@
 import { ChangeEvent, FC, useRef, useState } from "react";
 import ChatInput from "../chat-input/index";
 import ContentEmpty from "../content-empty";
-import { ChatMessage, ChatMessageAI, WSData } from "@appflowy-chat/types";
+import {
+  ChatMessage,
+  ChatMessageAI,
+  ResponseFormatMode,
+  ResponseFormatType,
+  WSData,
+} from "@appflowy-chat/types";
 import MessageUser from "../message-user";
 import { wait } from "@appflowy-chat/utils/common";
 import MessageLoading from "../message-loading";
 import { simulateWSResponse } from "@appflowy-chat/utils/simulateWSResponse";
 import { MockResponseText } from "@appflowy-chat/mock/ResponseText";
 import MessageAI from "../message-ai";
-import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 import { DefaultAIModelName } from "@appflowy-chat/utils/defaultAIModelName";
+import { MockChatMessages } from "@appflowy-chat/mock/ChatMessages";
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -17,9 +23,13 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    ...MockChatMessages.slice(0, 4),
+    ...MockChatMessages.slice(0, 0),
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [responseFormatMode, setResponseFormatMode] =
+    useState<ResponseFormatMode>("auto");
+  const [responseFormatType, setResponseFormatType] =
+    useState<ResponseFormatType>("text");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState("");
 
@@ -53,6 +63,12 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
   function handleStop() {
     console.log("STOP GENERATE");
   }
+  function handleChangeFormatMode(value: ResponseFormatMode) {
+    setResponseFormatMode(value);
+  }
+  function handleChangeFormatType(value: ResponseFormatType) {
+    setResponseFormatType(value);
+  }
 
   function handleMessageAIChange(data: {
     updValue: Pick<ChatMessageAI, "aiModel">;
@@ -83,6 +99,9 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
 
     await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 300));
 
+    const responseFormatTypeLocal: ChatMessageAI["formatType"] =
+      responseFormatMode === "auto" ? "auto" : responseFormatType;
+
     setMessages((prev) => [
       ...prev,
 
@@ -92,6 +111,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         created_at: Date.now(),
         id: Date.now().toString(),
         aiModel: DefaultAIModelName,
+        formatType: responseFormatTypeLocal,
       },
     ]);
     scrollToContainerBottomWithDelay();
@@ -116,18 +136,20 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     }, 10);
   }
   return (
-    <div className="flex-auto flex flex-col overflow-auto h-full relative ">
+    <div className="flex-auto flex flex-col overflow-auto h-full relative bg-ch-bg-base">
       <div className="absolute top-0 left-0 h-full max-h-full flex flex-col w-full ">
         <header className="w-full flex-none px-4 py-3 flex items-center justify-between">
-          <div className=" text-primary-dark  text-sm">Space Name... </div>
+          <div className=" text-ch-text-content text-sm">
+            <div>Space Name...</div>{" "}
+          </div>
           <div>
-            <button className="py-1.5 px-3 rounded-lg text-sm text-white font-medium bg-accent">
+            <button className="py-1.5 px-3 rounded-lg text-sm text-white font-medium bg-ch-accent">
               Share
             </button>
           </div>
         </header>
         <div
-          className="flex-auto w-full overflow-auto relative"
+          className="flex-auto w-full overflow-auto relative text-ch-text-content"
           ref={chatContainerRef}
         >
           {messages.length > 0 ? (
@@ -167,11 +189,15 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
         <div className="w-full ">
           <div className="appflowy-chat-content-wrap pb-4 pt-2">
             <ChatInput
+              value={inputValue}
+              formatMode={responseFormatMode}
+              formatType={responseFormatType}
               onChange={handleInputChange}
               onSubmit={handleSubmit}
               onStop={handleStop}
+              onChangeFormatMode={handleChangeFormatMode}
+              onChangeFormatType={handleChangeFormatType}
               isGenerating={isGenerating}
-              value={inputValue}
               ref={chatInputRef}
             />
           </div>

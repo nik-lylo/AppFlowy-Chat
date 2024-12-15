@@ -9,6 +9,7 @@ export interface ChatMessageUser extends ChatMessageCommon {
 export interface ChatMessageAI extends ChatMessageCommon {
   author: "ai";
   aiModel: AIModelName;
+  formatType: ResponseFormatType | "auto";
 }
 
 export interface WSData {
@@ -39,7 +40,7 @@ export type AIModelName =
   | "gpt_4omini"
   | "gpt_4o";
 
-export type FormatTextName =
+export type ResponseFormatType =
   | "text"
   | "image_text"
   | "image_only"
@@ -47,3 +48,5 @@ export type FormatTextName =
   | "number_list"
   | "table"
   | "bullet_list";
+
+export type ResponseFormatMode = "custom" | "auto";

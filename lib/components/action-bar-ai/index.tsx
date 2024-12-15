@@ -3,12 +3,12 @@ import ButtonBarAI from "../button-bar-ai";
 import { FC } from "react";
 import clsx from "clsx";
 import ButtonBarAIPopover from "../button-bar-ai-popover";
-import { AIModelName } from "@appflowy-chat/types";
+import { AIModelName, ChatMessageAI } from "@appflowy-chat/types";
 
 interface IProp {
   rootClasses?: string;
   buttons: ActionBarAIButtonData[];
-  aiModel: AIModelName;
+  message: ChatMessageAI;
   onAIModelChange?: (option: AIModelName) => void;
   onPopoverStateChange: (value: boolean) => void;
 }
@@ -16,7 +16,7 @@ interface IProp {
 const ActionBarAI: FC<IProp> = ({
   rootClasses,
   buttons,
-  aiModel,
+  message,
   onAIModelChange,
   onPopoverStateChange,
 }) => {
@@ -33,8 +33,11 @@ const ActionBarAI: FC<IProp> = ({
           let activeOption = "";
 
           if (btn.name == "switch-model") {
-            activeOption = aiModel;
+            activeOption = message.aiModel;
+          } else if (btn.name === "change-format") {
+            activeOption = message.formatType;
           }
+
           return (
             <ButtonBarAIPopover
               icon={btn.icon}

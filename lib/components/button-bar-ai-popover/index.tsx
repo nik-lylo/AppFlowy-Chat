@@ -1,5 +1,5 @@
 import { Popover } from "@mui/material";
-import React, {
+import {
   ComponentProps,
   FC,
   MouseEvent,
@@ -15,6 +15,8 @@ import IconRegenerate from "@appflowy-chat/assets/icons/regenerate.svg?react";
 import "./index.css";
 import { ActionBarAIButtonDataPopover } from "@appflowy-chat/utils/actionBarAIButtons";
 import TooltipDefault from "../tooltip-default";
+import { useTranslation } from "react-i18next";
+import FormatBarOptions from "../format-bar-options";
 
 interface Props extends ComponentProps<"button"> {
   icon: ReactNode;
@@ -39,6 +41,7 @@ const ButtonBarAIPopover: FC<Props> = ({
   const [shortOptionName, setShortOptionName] = useState<string>("");
 
   const rootRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     setIsOpen(true);
@@ -112,13 +115,13 @@ const ButtonBarAIPopover: FC<Props> = ({
           <div className="bg-white p-2">
             {optionsData.options.map((option) => (
               <div
-                className="py-1 px-1.5 text-sm text-primary-dark tracking-wide w-full min-w-52 flex justify-between cursor-pointer"
+                className="py-1 px-1.5 text-sm text-ch-text-content tracking-wide w-full min-w-52 flex justify-between cursor-pointer"
                 key={option.value}
                 onClick={() => handleOptionChange(option.value)}
               >
                 <div>{option.name}</div>
                 {activeOption === option.value && (
-                  <IconCheck className="w-4 h-4 flex-shrink-0 text-[#00A1CE]" />
+                  <IconCheck className="w-4 h-4 flex-shrink-0 text-ch-icon-blue" />
                 )}
               </div>
             ))}
@@ -144,36 +147,19 @@ const ButtonBarAIPopover: FC<Props> = ({
           }}
           closeAfterTransition={true}
         >
-          <div className="py-0.5 px-1 flex gap-1 ">
-            {optionsData.options.map((option, index) => {
-              return (
-                <React.Fragment key={option.name}>
-                  {index === 3 && (
-                    <div className="h-6 flex items-center">
-                      <div className="h-4 w-[1px] bg-primary-dark2/[0.08]"></div>
-                    </div>
-                  )}
-                  <ButtonBarAI
-                    icon={option.icon}
-                    tooltip={option.tooltip}
-                    iconMainWrapClass={
-                      option.name === "image_text"
-                        ? "relative w-[1.56rem] h-full [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2  [&>svg]:w-[1.56rem] [&>svg]:h-[1.31rem]"
-                        : undefined
-                    }
-                    // onClick={handleClick}
-                  />
-                </React.Fragment>
-              );
-            })}
-            <TooltipDefault title="Regenerate">
-              <button className="h-6 grid place-items-center flex-shrink-0">
-                <div className="w-4e h-4e bg-accent rounded-full w-2.5 h-2.5 grid place-items-center">
+          <FormatBarOptions
+            options={optionsData.options}
+            className="py-0.5 px-1"
+            activeOption={activeOption}
+          >
+            <TooltipDefault title={t("chat.tooltip.regenerate")}>
+              <button className="h-6 grid place-items-center flex-shrink-0 ml-1">
+                <div className="w-4e h-4e bg-ch-accent rounded-full w-2.5 h-2.5 grid place-items-center">
                   <IconRegenerate className="w-3 h-3 text-white" />
                 </div>
               </button>
             </TooltipDefault>
-          </div>
+          </FormatBarOptions>
         </Popover>
       )}
     </div>
