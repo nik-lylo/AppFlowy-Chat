@@ -17,7 +17,6 @@ import {
   STREAM_METADATA_KEY,
 } from '@appflowy-chat/types/ai';
 import { ChatHttpService } from '@appflowy-chat/services/http_service';
-import { beforeEach, describe, expect, test } from '@jest/globals';
 import { ChatError } from '@appflowy-chat/types/error';
 import { ErrorCode } from '@appflowy-chat/types/error';
 
@@ -32,7 +31,7 @@ class MockChat {
 }
 
 // Create a mock implementation of the ChatHttpService
-class MockChatHttpService extends ChatHttpService {
+export class MockChatHttpService extends ChatHttpService {
   message_id_counter: number = 0;
   // create a map to store the chat id and chat object
   private chatMap: Map<string, MockChat> = new Map();
@@ -45,6 +44,13 @@ class MockChatHttpService extends ChatHttpService {
     _workspace_id: string,
     params: CreateChatParams
   ): Promise<Response<void>> {
+    if (!params.chat_id) {
+      return Promise.resolve(
+        Response.fromError(
+          new ChatError(ErrorCode.InvalidRequest, 'Chat ID is required')
+        )
+      );
+    }
     const settings = {
       chat_id: params.chat_id,
       name: params.name,
@@ -56,6 +62,13 @@ class MockChatHttpService extends ChatHttpService {
   }
 
   deleteChat(_workspace_id: string, chat_id: string): Promise<Response<void>> {
+    if (!this.chatMap.has(chat_id)) {
+      return Promise.resolve(
+        Response.fromError(
+          new ChatError(ErrorCode.RecordNotFound, 'Chat not found')
+        )
+      );
+    }
     this.chatMap.delete(chat_id);
     return Promise.resolve(Response.fromSuccess(undefined));
   }
@@ -70,6 +83,19 @@ class MockChatHttpService extends ChatHttpService {
       return Promise.resolve(
         Response.fromError(
           new ChatError(ErrorCode.RecordNotFound, 'Chat not found')
+        )
+      );
+    }
+
+    // return error if all params are null
+    if (
+      params.name === null &&
+      params.rag_ids === null &&
+      params.metadata === null
+    ) {
+      return Promise.resolve(
+        Response.fromError(
+          new ChatError(ErrorCode.InvalidRequest, 'All parameters are null')
         )
       );
     }
@@ -243,7 +269,7 @@ class MockChatHttpService extends ChatHttpService {
     }
 
     // Simulate streaming by generating an AsyncIterableIterator
-    const stream = this.createStream(message_id);
+    const stream = this.createStream(message_id); // This should return an async iterator
 
     // Create and return the stream wrapped in a Response object
     return QuestionStream.fromStream(stream).then((questionStream) => {
@@ -283,32 +309,10 @@ class MockChatHttpService extends ChatHttpService {
     ];
 
     for (const chunk of streamData) {
-      // Simulate a small delay for streaming
       await new Promise((resolve) => setTimeout(resolve, 100));
-
-      // Yield the chunk (either answer or metadata)
       yield chunk;
     }
 
     return null;
   }
 }
-
-// Jest test suite
-describe('ChatHttpService', () => {
-  let chatService: MockChatHttpService;
-
-  beforeEach(() => {
-    chatService = new MockChatHttpService();
-  });
-
-  test('should create a new chat', async () => {
-    const params = {
-      chat_id: 'chat1',
-      name: 'New Chat',
-      rag_ids: [],
-    } as CreateChatParams;
-    const response = await chatService.createChat('workspace1', params);
-    expect(response.isSuccess()).toBe(true);
-  });
-});

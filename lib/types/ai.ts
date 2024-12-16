@@ -1,4 +1,4 @@
-import { ChatError, ResponseError } from "./error";
+import { ChatError } from "./error";
 
 export const STREAM_METADATA_KEY: string = "0";
 export const STREAM_ANSWER_KEY: string = "1";
@@ -95,10 +95,11 @@ interface QuestionStreamValue {
   type: "Answer" | "Metadata";
   value: JSONValue;
 }
-export class QuestionStream {
-  private stream: AsyncIterableIterator<JSONValue | ResponseError>;
 
-  constructor(stream: AsyncIterableIterator<JSONValue | ResponseError>) {
+export class QuestionStream {
+  private stream: AsyncIterableIterator<JSONValue | ChatError>;
+
+  constructor(stream: AsyncIterableIterator<JSONValue | ChatError>) {
     this.stream = stream;
   }
 
@@ -108,13 +109,13 @@ export class QuestionStream {
   }
 
   // Processes the next item in the stream
-  async next(): Promise<QuestionStreamValue | ResponseError | null> {
+  async next(): Promise<QuestionStreamValue | ChatError | null> {
     const result = await this.stream.next();
     if (result.done) return null;
 
     const value = result.value;
-    if ((value as ResponseError).message) {
-      return value as ResponseError;
+    if ((value as ChatError).message) {
+      return value as ChatError;
     }
 
     const jsonValue = value as Record<string, JSONValue>;
@@ -130,7 +131,11 @@ export class QuestionStream {
     }
 
     // Invalid format case
-    return { message: "Invalid streaming value", code: -1 } as ResponseError;
+    return { message: "Invalid streaming value", code: -1 } as ChatError;
+  }
+
+  [Symbol.asyncIterator]() {
+    return this.stream; 
   }
 }
 

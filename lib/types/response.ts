@@ -20,5 +20,9 @@ export class Response<T> {
   isSuccess(): boolean {
     return this.error === null;
   }
+
+  isError(): boolean {
+    return this.error !== null;
+  }
 }
 

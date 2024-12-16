@@ -5,4 +5,8 @@ export default {
     "^.+.tsx?$": ["ts-jest",{}],
   },
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
+  moduleDirectories: ['node_modules', 'lib'],
+  moduleNameMapper: {
+    '^@appflowy-chat/(.*)$': '<rootDir>/lib/$1',
+  },
 };
