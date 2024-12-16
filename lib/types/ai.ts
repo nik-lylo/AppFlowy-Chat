@@ -1,4 +1,4 @@
-import { ResponseError } from "./error";
+import { ChatError, ResponseError } from "./error";
 
 export const STREAM_METADATA_KEY: string = "0";
 export const STREAM_ANSWER_KEY: string = "1";
@@ -53,8 +53,8 @@ export interface ChatMessage {
   message_id: number;
   content: string;
   created_at: Date;
-  meta_data: Record<string, string>;
-  reply_message_id: number;
+  meta_data: JSONValue;
+  reply_message_id: number | null;
 }
 
 export interface RepeatedChatMessage {
@@ -90,7 +90,6 @@ export interface ChatSettings {
 }
 
 
-
 // Interface for the values in the stream (Answer or Metadata)
 interface QuestionStreamValue {
   type: "Answer" | "Metadata";
@@ -104,7 +103,7 @@ export class QuestionStream {
   }
 
   // Static method to create an instance of QuestionStream from an async iterable iterator
-  static async fromStream(stream: AsyncIterableIterator<JSONValue | ResponseError>): Promise<QuestionStream> {
+  static async fromStream(stream: AsyncIterableIterator<JSONValue | ChatError>): Promise<QuestionStream> {
     return new QuestionStream(stream);
   }
 
@@ -134,6 +133,7 @@ export class QuestionStream {
     return { message: "Invalid streaming value", code: -1 } as ResponseError;
   }
 }
+
 export interface RelatedQuestion {
   content: string;
   metadata: JSONValue;
