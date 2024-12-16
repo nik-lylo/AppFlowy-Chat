@@ -9,7 +9,8 @@ interface Props extends ComponentProps<'button'> {
   active?: boolean;
   iconMainWrapClass?: string;
   activeClass?: string;
-  children: ReactNode;
+  colorClass?: string;
+  children?: ReactNode;
 }
 
 const ButtonBarAI: FC<Props> = ({
@@ -18,6 +19,8 @@ const ButtonBarAI: FC<Props> = ({
   iconMainWrapClass,
   active = false,
   activeClass = 'bg-ch-fill-hover',
+  colorClass = 'text-ch-primary-gray2',
+
   tooltip,
   children,
   ...rest
@@ -28,7 +31,8 @@ const ButtonBarAI: FC<Props> = ({
       <button
         className={clsx([
           className,
-          'flex h-6 items-center gap-[1px] rounded-lg p-1 text-ch-primary-gray2 transition-colors hover:bg-ch-fill-hover',
+          colorClass,
+          'flex h-6 items-center gap-[1px] rounded-lg p-1 transition-colors hover:bg-ch-fill-hover disabled:bg-transparent disabled:text-ch-text-disabled',
           { [activeClass]: active },
         ])}
         type='button'
@@ -43,7 +47,7 @@ const ButtonBarAI: FC<Props> = ({
         >
           {icon}
         </div>
-        {children}
+        {children && children}
       </button>
     </TooltipDefault>
   );

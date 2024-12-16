@@ -2,12 +2,14 @@ import { TextField } from '@mui/material';
 import ButtonIconSubmit from '../button-icon-submit';
 import IconArrowUp from '@appflowy-chat/assets/icons/arrow-up.svg?react';
 import IconStop from '@appflowy-chat/assets/icons/stop.svg?react';
+import IconClip from '@appflowy-chat/assets/icons/clip.svg?react';
 import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from 'react';
 import './index.css';
 import { useTranslation } from 'react-i18next';
 import { ResponseFormatMode, ResponseFormatType } from '@appflowy-chat/types';
 import FormatBarOptions from '../format-bar-options';
 import { FormatTextButtons } from '@appflowy-chat/utils/formatTextButtons';
+import ButtonIcon from '../button-icon';
 
 interface IProps {
   value: string;
@@ -106,8 +108,8 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         
         
       />
-        <div className='flex justify-between px-2 pt-0.5'>
-          <div className='flex items-end pb-0.5'>
+        <div className='flex justify-between px-2'>
+          <div className='flex items-end py-0.5'>
             <button
               className='flex h-fit rounded bg-transparent p-1 text-xs text-ch-text-caption transition-colors hover:bg-ch-fill-hover'
               type='button'
@@ -118,29 +120,27 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
                 : t('chat.input.button.auto')}
             </button>
           </div>
-          <div className='text-ch-icon flex gap-2'>
-            {/* <ButtonIconSubmit
-              className='disabled:text-ch-primary-gray'
-              classSize='w-6 h-6'
-              icon={<IconClip className='h-4 w-4' />}
-              type='button'
+          <div className='flex items-start gap-2'>
+            <ButtonIcon
+              icon={<IconClip />}
+              tooltip='chat.input.button.attach'
               disabled={isGenerating}
-              onClick={onStop}
-            /> */}
+              colorClass='text-ch-icon'
+            />
             {isGenerating ? (
               <ButtonIconSubmit
                 className='text-ch-accent disabled:text-ch-primary-gray'
-                classSize='w-5 h-5'
-                icon={<IconStop className='h-full w-full' />}
+                classSize='w-6 h-6'
+                icon={<IconStop className='h-5 w-5' />}
                 type='button'
                 onClick={onStop}
               />
             ) : (
               <ButtonIconSubmit
                 className='text-ch-accent disabled:text-ch-text-disabled'
-                classSize='w-5 h-5'
+                classSize='w-6 h-6'
                 disabled={value.trim().length < 3}
-                icon={<IconArrowUp className='h-full w-full' />}
+                icon={<IconArrowUp className='h-5 w-5' />}
                 type='submit'
               />
             )}

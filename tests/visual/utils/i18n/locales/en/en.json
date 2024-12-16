@@ -14,7 +14,8 @@
       "placeholderFormat": "AI response will generate with the format you define above",
       "button": {
         "format": "Format response",
-        "auto": "Auto"
+        "auto": "Auto",
+        "attach": "Attach files"
       }
     },
     "tooltip": {
