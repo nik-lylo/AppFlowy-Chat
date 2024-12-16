@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import ButtonIcon from '../button-icon';
+import ButtonIconSubmit from '../button-icon-submit';
 import IconArrowUp from '@appflowy-chat/assets/icons/arrow-up.svg?react';
 import IconStop from '@appflowy-chat/assets/icons/stop.svg?react';
 import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from 'react';
@@ -118,18 +118,26 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
                 : t('chat.input.button.auto')}
             </button>
           </div>
-          <div className='text-ch-accent'>
+          <div className='text-ch-icon flex gap-2'>
+            {/* <ButtonIconSubmit
+              className='disabled:text-ch-primary-gray'
+              classSize='w-6 h-6'
+              icon={<IconClip className='h-4 w-4' />}
+              type='button'
+              disabled={isGenerating}
+              onClick={onStop}
+            /> */}
             {isGenerating ? (
-              <ButtonIcon
-                className='disabled:text-ch-primary-gray'
+              <ButtonIconSubmit
+                className='text-ch-accent disabled:text-ch-primary-gray'
                 classSize='w-5 h-5'
                 icon={<IconStop className='h-full w-full' />}
                 type='button'
                 onClick={onStop}
               />
             ) : (
-              <ButtonIcon
-                className='disabled:text-ch-text-disabled'
+              <ButtonIconSubmit
+                className='text-ch-accent disabled:text-ch-text-disabled'
                 classSize='w-5 h-5'
                 disabled={value.trim().length < 3}
                 icon={<IconArrowUp className='h-full w-full' />}

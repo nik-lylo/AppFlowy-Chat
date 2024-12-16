@@ -38,6 +38,7 @@ export default {
           divider: 'var(--chat-line-divider)',
         },
         'ch-icon': {
+          DEFAULT: 'var(--chat-icon)',
           secondary: 'var(--chat-icon-secondary)',
           blue: 'var(--chat-icon-blue)',
         },
