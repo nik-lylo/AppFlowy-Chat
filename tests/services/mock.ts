@@ -17,7 +17,6 @@ import {
   STREAM_METADATA_KEY,
 } from '@appflowy-chat/types/ai';
 import { ChatHttpService } from '@appflowy-chat/services/http_service';
-import { beforeEach, describe, expect, test } from '@jest/globals';
 import { ChatError } from '@appflowy-chat/types/error';
 import { ErrorCode } from '@appflowy-chat/types/error';
 
@@ -32,7 +31,7 @@ class MockChat {
 }
 
 // Create a mock implementation of the ChatHttpService
-class MockChatHttpService extends ChatHttpService {
+export class MockChatHttpService extends ChatHttpService {
   message_id_counter: number = 0;
   // create a map to store the chat id and chat object
   private chatMap: Map<string, MockChat> = new Map();
@@ -283,32 +282,10 @@ class MockChatHttpService extends ChatHttpService {
     ];
 
     for (const chunk of streamData) {
-      // Simulate a small delay for streaming
       await new Promise((resolve) => setTimeout(resolve, 100));
-
-      // Yield the chunk (either answer or metadata)
       yield chunk;
     }
 
     return null;
   }
 }
-
-// Jest test suite
-describe('ChatHttpService', () => {
-  let chatService: MockChatHttpService;
-
-  beforeEach(() => {
-    chatService = new MockChatHttpService();
-  });
-
-  test('should create a new chat', async () => {
-    const params = {
-      chat_id: 'chat1',
-      name: 'New Chat',
-      rag_ids: [],
-    } as CreateChatParams;
-    const response = await chatService.createChat('workspace1', params);
-    expect(response.isSuccess()).toBe(true);
-  });
-});
