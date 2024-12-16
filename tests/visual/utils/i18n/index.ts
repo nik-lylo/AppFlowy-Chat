@@ -1,6 +1,6 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import langEn from "./locales/en/en.json";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import langEn from './locales/en/en.json';
 
 const resources = {
   en: {
@@ -13,8 +13,8 @@ i18n
 
   .init({
     resources,
-    lng: "en",
-    fallbackLng: "en",
+    lng: 'en',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
