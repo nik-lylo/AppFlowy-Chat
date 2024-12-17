@@ -1,47 +1,47 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path, { resolve } from "path";
-import dts from "vite-plugin-dts";
-import tailwindcss from "tailwindcss";
-import svgr from "vite-plugin-svgr";
-import removeConsole from "vite-plugin-remove-console";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path, { resolve } from 'path';
+import dts from 'vite-plugin-dts';
+import tailwindcss from 'tailwindcss';
+import svgr from 'vite-plugin-svgr';
+import removeConsole from 'vite-plugin-remove-console';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      "@appflowy-chat": path.resolve(__dirname, "lib"),
+      '@appflowy-chat': path.resolve(__dirname, 'lib'),
     },
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "./lib/index.ts"),
-      name: "react-beautiful-timeline",
+      entry: resolve(__dirname, './lib/index.ts'),
+      name: 'react-beautiful-timeline',
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "tailwindcss"],
+      external: ['react', 'react-dom', 'tailwindcss'],
       output: {
         globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          tailwindcss: "tailwindcss",
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          tailwindcss: 'tailwindcss',
         },
       },
     },
     sourcemap: true,
     emptyOutDir: true,
-    outDir: resolve(__dirname, "dist"),
+    outDir: resolve(__dirname, 'dist'),
   },
   server: {
     port: 3100,
   },
 
-  root: "./test/visual",
+  root: './tests/visual',
   plugins: [
     react(),
     svgr({
-      include: "**/*.svg?react",
+      include: '**/*.svg?react',
     }),
     dts(),
     removeConsole(),

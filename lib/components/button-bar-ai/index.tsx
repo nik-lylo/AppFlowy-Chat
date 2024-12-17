@@ -1,10 +1,8 @@
-import { ComponentProps, FC, ReactNode } from "react";
-import clsx from "clsx";
-import IconChevron from "@appflowy-chat/assets/icons/chevron.svg?react";
-import TooltipDefault from "../tooltip-default";
-import { useTranslation } from "react-i18next";
+import { ComponentProps, FC, ReactNode } from 'react';
+import IconChevron from '@appflowy-chat/assets/icons/chevron.svg?react';
+import ButtonIcon from '../button-icon';
 
-interface Props extends ComponentProps<"button"> {
+interface Props extends ComponentProps<'button'> {
   icon: ReactNode;
   tooltip: string;
   active?: boolean;
@@ -16,45 +14,33 @@ interface Props extends ComponentProps<"button"> {
 const ButtonBarAI: FC<Props> = ({
   icon,
   withDropdownIcon,
-  className = "",
+  className = '',
   iconMainWrapClass,
   active = false,
   tooltip,
   btnText,
   ...rest
 }) => {
-  const { t } = useTranslation();
   return (
-    <TooltipDefault title={t(tooltip)}>
-      <button
-        className={clsx([
-          className,
-          "flex items-center gap-[1px] h-6 p-1 text-ch-primary-gray2 rounded-lg hover:bg-ch-fill-hover transition-colors",
-          { ["bg-ch-fill-hover"]: active },
-        ])}
-        data-tooltip-id="base-tooltip"
-        data-tooltip-content="Hello world!"
-        type="button"
+    <>
+      <ButtonIcon
+        icon={icon}
+        tooltip={tooltip}
+        className={className}
+        iconMainWrapClass={iconMainWrapClass}
+        active={active}
         {...rest}
       >
-        <div
-          className={clsx(
-            iconMainWrapClass
-              ? iconMainWrapClass
-              : "w-full h-full [&>svg]:w-4 [&>svg]:h-4"
+        <>
+          {btnText && <div className='text-nowrap text-xs'>{btnText}</div>}
+          {withDropdownIcon && (
+            <div className='flex h-full flex-shrink-0 items-center justify-center text-ch-icon-secondary [&>svg]:h-2.5 [&>svg]:w-2.5'>
+              <IconChevron className='h-2.5 w-2.5' />
+            </div>
           )}
-        >
-          {icon}
-        </div>
-        {btnText && <div className="text-xs text-nowrap">{btnText}</div>}
-
-        {withDropdownIcon && (
-          <div className="h-full [&>svg]:w-2.5 [&>svg]:h-2.5 text-ch-icon-secondary flex items-center justify-center flex-shrink-0">
-            <IconChevron className="w-2.5 h-2.5" />
-          </div>
-        )}
-      </button>
-    </TooltipDefault>
+        </>
+      </ButtonIcon>
+    </>
   );
 };
 
