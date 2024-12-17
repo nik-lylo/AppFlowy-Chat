@@ -16,10 +16,9 @@ import {
   STREAM_ANSWER_KEY,
   STREAM_METADATA_KEY,
 } from '@appflowy-chat/types/ai';
-import { ChatHttpService } from '@appflowy-chat/services/http_service';
 import { ChatError } from '@appflowy-chat/types/error';
 import { ErrorCode } from '@appflowy-chat/types/error';
-
+import { ChatHttpService } from '@appflowy-chat/types/http_service';
 class MockChat {
   settings: ChatSettings;
   messages: ChatMessage[];
