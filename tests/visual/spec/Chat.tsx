@@ -42,6 +42,8 @@ const ChatTest = () => {
         userAvatar={
           'https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S-768x768.jpg'
         }
+        workspaceId='30940593343'
+        initChatId=''
       />
     </div>
   );
