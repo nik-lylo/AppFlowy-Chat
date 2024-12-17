@@ -39,6 +39,7 @@ export default {
         },
         'ch-icon': {
           DEFAULT: 'var(--chat-icon)',
+          n2: 'var(--chat-icon-n2)',
           secondary: 'var(--chat-icon-secondary)',
           blue: 'var(--chat-icon-blue)',
         },
@@ -47,6 +48,9 @@ export default {
           hover: 'var(--fill-list-hover)',
           'card-user': 'var(--chat-card-user)',
           tooltip: 'var(--chat-tooltip)',
+        },
+        'ch-purple': {
+          100: 'var(--chat-purple-100)',
         },
       },
       boxShadow: {

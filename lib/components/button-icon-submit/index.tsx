@@ -1,19 +1,26 @@
-import { ComponentProps, FC, ReactNode } from "react";
-import clsx from "clsx";
+import { ComponentProps, FC, ReactNode } from 'react';
+import clsx from 'clsx';
 
-interface Props extends ComponentProps<"button"> {
+interface Props extends ComponentProps<'button'> {
   icon: ReactNode;
   classSize?: string;
 }
 
 const ButtonIcon: FC<Props> = ({
   icon,
-  classSize = "w-8 h-8 p-1",
-  className = "",
+  classSize = 'w-8 h-8 p-1',
+  className = '',
   ...rest
 }) => {
   return (
-    <button className={clsx([className, classSize])} {...rest}>
+    <button
+      className={clsx([
+        className,
+        classSize,
+        'flex items-center justify-center',
+      ])}
+      {...rest}
+    >
       {icon}
     </button>
   );
