@@ -58,6 +58,7 @@ const Chat: FC<IProp> = ({ userAvatar }) => {
     });
 
     setInputValue('');
+    setAttachments([]);
 
     generateResponse(inputValue);
   }

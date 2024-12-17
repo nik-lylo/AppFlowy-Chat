@@ -108,8 +108,6 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
             newFiles.push({ file, url, id: v4(), preview, ext });
 
             onAttachmentsChange([...attachments, ...newFiles]);
-
-            // setSelectedFiles([...selectedFiles, ...newFiles]);
           };
 
           reader.readAsDataURL(file);
