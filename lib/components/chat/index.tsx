@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import ChatInput from '../chat-input/index';
 import ContentEmpty from '../content-empty';
 import {
@@ -18,12 +25,14 @@ import {
   ChatAuthorType,
   ChatMessageType,
   QuestionStreamValue,
+  RelatedQuestion,
 } from '@appflowy-chat/types/ai';
 import { Response } from '@appflowy-chat/types/response';
 import { v4 } from 'uuid';
 import { ChatError } from '@appflowy-chat/types/error';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { wait } from '@appflowy-chat/utils/common';
+import RelatedQuestionsBlock from '../related-questions';
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -34,7 +43,9 @@ interface IProp {
 const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [hasMoreMessages, setHasMoreMessages] = useState(false);
-
+  const [relatedQuestions, setRelatedQuestions] = useState<RelatedQuestion[]>(
+    []
+  );
   const [chatId, setChatId] = useState<string | null>(null);
   const [settings, setSettings] = useState<ChatSettings>();
   const [inputValue, setInputValue] = useState('');
@@ -100,6 +111,9 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       if (!newMessage) {
         throw new Error('Can not get the new message body');
       }
+
+      setRelatedQuestions([]);
+
       setMessages((prev) => {
         return [newMessage, ...prev];
       });
@@ -112,7 +126,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       if (!questionStream) {
         throw new Error('Error getting the response stream');
       }
-
       const resultStreamData: QuestionStreamValue[] = [];
 
       let generetingContent = '';
@@ -135,9 +148,10 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
         result = await questionStream.data?.next();
       }
 
+      const newMessageResponseId = Date.now();
       const chatMessageAIResponse: ChatMessage = {
         author: { author_id: 1, author_type: ChatAuthorType.AI },
-        message_id: Date.now(),
+        message_id: newMessageResponseId,
         content: generetingContent,
         created_at: new Date(),
         meta_data: {},
@@ -149,6 +163,8 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       });
 
       scrollToContainerBottomWithDelay();
+
+      loadRelatedQuestions(chatIdCurrent, newMessageResponseId);
 
       setIsGenerating(false);
     } catch (e) {
@@ -181,6 +197,10 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   function handleAttachmentsChange(data: FilePreview[]) {
     setAttachments(data);
   }
+
+  function handleClickRelatedQuestion(question: RelatedQuestion) {
+    setInputValue(question.content);
+  }
   function scrollToContainerBottom() {
     if (!chatContainerRef.current) {
       return;
@@ -191,11 +211,11 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     });
   }
 
-  function scrollToContainerBottomWithDelay() {
+  const scrollToContainerBottomWithDelay = useCallback(() => {
     setTimeout(() => {
       scrollToContainerBottom();
     }, 10);
-  }
+  }, []);
 
   async function loadMoreMessages() {
     if (!chatId) {
@@ -221,6 +241,24 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     } catch (e) {
       setHasMoreMessages(false);
       console.log(e);
+    }
+  }
+
+  async function loadRelatedQuestions(chatId: string, messageId: number) {
+    if (!chatId) {
+      return;
+    }
+    try {
+      const questionsResponse = await chatHttpServiceMain.getRelatedQuestions(
+        workspaceId,
+        chatId,
+        messageId
+      );
+
+      setRelatedQuestions(questionsResponse.data || []);
+    } catch (e) {
+      console.log(e);
+      setRelatedQuestions([]);
     }
   }
   useEffect(() => {
@@ -281,8 +319,10 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
 
     loadChat();
 
+    console.log('ON RENDER IT');
+
     return () => {};
-  }, [workspaceId, initChatId]);
+  }, [workspaceId, initChatId, scrollToContainerBottomWithDelay]);
 
   return (
     <div className='relative flex h-full flex-auto flex-col overflow-auto bg-ch-bg-base'>
@@ -315,10 +355,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
                     <InfiniteScroll
                       dataLength={messages.length}
                       next={loadMoreMessages}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column-reverse',
-                      }}
                       inverse={true} //
                       hasMore={hasMoreMessages}
                       loader={
@@ -329,6 +365,12 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
                       scrollableTarget='appflowy-chat-content-container'
                       className='flex flex-col-reverse gap-4'
                     >
+                      {!isGenerating && (
+                        <RelatedQuestionsBlock
+                          relatedQuestions={relatedQuestions}
+                          onQuestionClick={handleClickRelatedQuestion}
+                        />
+                      )}
                       {isGenerating && <MessageLoading body={generatingBody} />}
                       {messages.map((message, index) => {
                         if (
