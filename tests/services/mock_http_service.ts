@@ -295,7 +295,7 @@ export class MockChatHttpService extends ChatHttpService {
     message_id: number
   ): AsyncIterableIterator<JSONValue | ChatError> {
     const streamData = [
-      { [STREAM_ANSWER_KEY]: `Streamed answer for message ${message_id}` },
+      { [STREAM_ANSWER_KEY]: `Streamed answer for message ${message_id} ` },
       { [STREAM_METADATA_KEY]: { meta: 'Metadata for message ' + message_id } },
       {
         [STREAM_ANSWER_KEY]: `Another streamed answer for message ${message_id}`,
@@ -308,7 +308,7 @@ export class MockChatHttpService extends ChatHttpService {
     ];
 
     for (const chunk of streamData) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       yield chunk;
     }
 

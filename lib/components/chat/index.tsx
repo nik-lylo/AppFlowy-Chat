@@ -17,9 +17,11 @@ import {
   ChatMessage as ChatMessage,
   ChatAuthorType,
   ChatMessageType,
+  QuestionStreamValue,
 } from '@appflowy-chat/types/ai';
 import { Response } from '@appflowy-chat/types/response';
 import { v4 } from 'uuid';
+import { ChatError } from '@appflowy-chat/types/error';
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -51,6 +53,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   }
   async function handleSubmit() {
     try {
+      console.log(settings);
       setIsGenerating(true);
       const inputValueCurrent = inputValue;
       setInputValue('');
@@ -84,8 +87,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
         throw rSendMessage.error;
       }
 
-      console.log(rSendMessage.data, 'data');
-
       const newMessage = rSendMessage.data;
 
       if (!newMessage) {
@@ -103,6 +104,58 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       if (!questionStream) {
         throw new Error('Error getting the response stream');
       }
+
+      const resultStreamData: QuestionStreamValue[] = [];
+
+      let generetingContent = '';
+      let result = await questionStream.data?.next();
+      while (result) {
+        if (result && !(result instanceof ChatError)) {
+          resultStreamData.push(result);
+          if (result.type === 'Answer') {
+            if (typeof result.value === 'string') {
+              const resultStringValue = result.value;
+              setGeneratingBody((prevValue) => {
+                const newValue = prevValue + resultStringValue;
+                generetingContent = newValue;
+                return newValue;
+              });
+              scrollToContainerBottomWithDelay();
+            }
+          }
+        }
+        result = await questionStream.data?.next();
+      }
+
+      const chatMessageAIResponse: ChatMessage = {
+        author: { author_id: 1, author_type: ChatAuthorType.AI },
+        message_id: Date.now(),
+        content: generetingContent,
+        created_at: new Date(),
+        meta_data: {},
+        reply_message_id: null,
+      };
+      setMessages((prev) => {
+        return [
+          ...prev,
+          chatMessageAIResponse,
+          // {
+          //   author: {
+          //     id: '1',
+          //
+          //     name: 'AI',
+          //     meta: {},
+          //   },
+          //   content: generetingContent,
+          //   created_at: Date.now(),
+          //   message_id: v4(),
+          //   meta_data: {},
+          //   reply_message_id: newMessage.message_id,
+          // },
+        ];
+      });
+
+      scrollToContainerBottomWithDelay();
 
       setIsGenerating(false);
     } catch (e) {
@@ -135,45 +188,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   function handleAttachmentsChange(data: FilePreview[]) {
     setAttachments(data);
   }
-
-  // async function generateResponse(inputVal: string) {
-  //   let generatingBodyLocal = '';
-  //   function handleWSResponse(data: WSData) {
-  //     if (data.status === 'update') {
-  //       setGeneratingBody((prev) => prev + data.content);
-  //       generatingBodyLocal = generatingBodyLocal + data.content;
-  //     }
-  //     scrollToContainerBottom();
-  //   }
-  //   setIsGenerating(true);
-  //   scrollToContainerBottomWithDelay();
-
-  //   console.log(inputVal);
-  //   await wait(500);
-
-  //   await simulateWSResponse(handleWSResponse, MockResponseText.slice(0, 300));
-
-  //   const responseFormatTypeLocal: ChatMessageAI['formatType'] =
-  //     responseFormatMode === 'auto' ? 'auto' : responseFormatType;
-
-  //   setMessages((prev) => [
-  //     ...prev,
-
-  //     {
-  //       author: 'ai',
-  //       body: generatingBodyLocal,
-  //       created_at: Date.now(),
-  //       id: Date.now().toString(),
-  //       aiModel: DefaultAIModelName,
-  //       formatType: responseFormatTypeLocal,
-  //     },
-  //   ]);
-  //   scrollToContainerBottomWithDelay();
-  //   setGeneratingBody('');
-  //   setIsGenerating(false);
-  //   chatInputRef.current?.focus();
-  // }
-
   function scrollToContainerBottom() {
     if (!chatContainerRef.current) {
       return;
@@ -229,7 +243,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
           setChatId(initChatId);
           setSettings(settingsResponse.data);
           setMessages(messagesResponse.data.messages);
-          console.log(responses, 'promise data', settings);
         } catch (e) {
           console.log(e);
         }
