@@ -6,6 +6,7 @@ import tailwindcss from 'tailwindcss';
 import svgr from 'vite-plugin-svgr';
 import removeConsole from 'vite-plugin-remove-console';
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
