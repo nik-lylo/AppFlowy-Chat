@@ -1,4 +1,3 @@
-import { Editor, NodeType } from '@appflowyinc/editor';
 import { FC } from 'react';
 
 interface IProps {
@@ -8,7 +7,8 @@ interface IProps {
 const MessageResponseContent: FC<IProps> = ({ body }) => {
   return (
     <div className='text-sm'>
-      <Editor
+      {body}
+      {/* <Editor
         theme={'dark'}
         readOnly
         initialValue={[
@@ -23,7 +23,7 @@ const MessageResponseContent: FC<IProps> = ({ body }) => {
             children: [],
           },
         ]}
-      />
+      /> */}
     </div>
   );
 };
