@@ -74,6 +74,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     }
     try {
       console.log(settings);
+      setGeneratingBody('');
       setIsGenerating(true);
       const inputValueCurrent = inputValue;
       setInputValue('');
