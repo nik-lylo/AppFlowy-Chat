@@ -9,7 +9,7 @@ function generateChatMessage(index: number): ChatMessage {
         author_type: ChatAuthorType.AI,
       },
       message_id: 1000 + index,
-      content: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.`,
+      content: `MSG:${index}. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.`,
       created_at: new Date(),
       meta_data: {},
       reply_message_id: 100 + index - 1,
@@ -22,8 +22,7 @@ function generateChatMessage(index: number): ChatMessage {
         author_type: ChatAuthorType.Human,
       },
       message_id: 100 + index,
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+      content: `MSG:${index}.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
       created_at: new Date(),
       meta_data: {},
       reply_message_id: null,
@@ -32,7 +31,7 @@ function generateChatMessage(index: number): ChatMessage {
 }
 
 export const MockChatMessages: ChatMessage[] = (() => {
-  const amountOfMessages = 50;
+  const amountOfMessages = 100;
 
   const result: ChatMessage[] = [];
 

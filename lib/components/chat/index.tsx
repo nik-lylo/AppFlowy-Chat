@@ -22,6 +22,8 @@ import {
 import { Response } from '@appflowy-chat/types/response';
 import { v4 } from 'uuid';
 import { ChatError } from '@appflowy-chat/types/error';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { wait } from '@appflowy-chat/utils/common';
 
 interface IProp {
   userAvatar: string | null | undefined;
@@ -31,6 +33,8 @@ interface IProp {
 
 const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [hasMoreMessages, setHasMoreMessages] = useState(false);
+
   const [chatId, setChatId] = useState<string | null>(null);
   const [settings, setSettings] = useState<ChatSettings>();
   const [inputValue, setInputValue] = useState('');
@@ -97,7 +101,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
         throw new Error('Can not get the new message body');
       }
       setMessages((prev) => {
-        return [...prev, newMessage];
+        return [newMessage, ...prev];
       });
 
       const questionStream = await chatHttpServiceMain.streamMessageResponse(
@@ -141,7 +145,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       };
 
       setMessages((prev) => {
-        return [...prev, chatMessageAIResponse];
+        return [chatMessageAIResponse, ...prev];
       });
 
       scrollToContainerBottomWithDelay();
@@ -193,6 +197,32 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     }, 10);
   }
 
+  async function loadMoreMessages() {
+    if (!chatId) {
+      return;
+    }
+    try {
+      await wait(500);
+
+      const { data: getChatMessagesData } =
+        await chatHttpServiceMain.getChatMessages(
+          workspaceId,
+          chatId,
+          { type: 'Offset', value: messages.length },
+          10
+        );
+      console.log(getChatMessagesData, 'getChatMessagesData');
+      if (getChatMessagesData) {
+        setMessages((prev) => [...prev, ...getChatMessagesData.messages]);
+        setHasMoreMessages(getChatMessagesData?.has_more);
+      } else {
+        setHasMoreMessages(false);
+      }
+    } catch (e) {
+      setHasMoreMessages(false);
+      console.log(e);
+    }
+  }
   useEffect(() => {
     if (!workspaceId) {
       return;
@@ -211,7 +241,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
                 type: 'Offset',
                 value: 0,
               },
-              20
+              10
             ),
           ];
 
@@ -231,16 +261,17 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
               'Settings and messages should not be equal to null'
             );
           }
-          console.log(messagesResponse, settingsResponse, 'responses');
 
           setChatId(initChatId);
           setSettings(settingsResponse.data);
           setMessages(messagesResponse.data.messages);
+          setHasMoreMessages(messagesResponse.data.has_more);
 
           setIsInitLoading(false);
           scrollToContainerBottomWithDelay();
         } catch (e) {
           console.log(e);
+
           setIsInitLoading(false);
         }
       } else {
@@ -267,11 +298,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
           </div>
         </header>
 
-        <></>
-        <div
-          className='relative w-full flex-auto overflow-auto text-ch-text-content'
-          ref={chatContainerRef}
-        >
+        <div className='relative flex w-full flex-auto overflow-auto text-ch-text-content'>
           {isInitLoading ? (
             <div className='appflowy-chat-content-wrap flex min-h-full items-center justify-center py-4 text-sm text-ch-text-caption'>
               Loading...
@@ -279,38 +306,63 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
           ) : (
             <>
               {messages.length > 0 ? (
-                <div className='appflowy-chat-content-wrap flex min-h-full flex-col gap-4'>
-                  {messages.map((message, index, messages) => {
-                    if (message.author.author_type === ChatAuthorType.Human) {
-                      return (
-                        <MessageUser
-                          avatar={userAvatar}
-                          message={message}
-                          key={message.message_id}
-                        />
-                      );
-                    } else if (
-                      message.author.author_type === ChatAuthorType.AI
-                    ) {
-                      return (
-                        <MessageAI
-                          message={message}
-                          key={message.message_id}
-                          isLastResponse={index === messages.length - 1}
-                          onAIModelChange={(option) =>
-                            handleMessageAIChange({
-                              index,
-                              updValue: { aiModel: option },
-                            })
-                          }
-                        />
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
-
-                  {isGenerating && <MessageLoading body={generatingBody} />}
+                <div
+                  className='flex h-30 min-h-full w-full flex-col-reverse overflow-auto'
+                  id='appflowy-chat-content-container'
+                  ref={chatContainerRef}
+                >
+                  <div className='appflowy-chat-content-wrap'>
+                    <InfiniteScroll
+                      dataLength={messages.length}
+                      next={loadMoreMessages}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column-reverse',
+                      }}
+                      inverse={true} //
+                      hasMore={hasMoreMessages}
+                      loader={
+                        <div className='w-full text-center text-ch-text-caption'>
+                          Loading...
+                        </div>
+                      }
+                      scrollableTarget='appflowy-chat-content-container'
+                      className='flex flex-col-reverse gap-4'
+                    >
+                      {isGenerating && <MessageLoading body={generatingBody} />}
+                      {messages.map((message, index) => {
+                        if (
+                          message.author.author_type === ChatAuthorType.Human
+                        ) {
+                          return (
+                            <MessageUser
+                              avatar={userAvatar}
+                              message={message}
+                              key={message.message_id}
+                            />
+                          );
+                        } else if (
+                          message.author.author_type === ChatAuthorType.AI
+                        ) {
+                          return (
+                            <MessageAI
+                              message={message}
+                              key={message.message_id}
+                              isLastResponse={index === 0}
+                              onAIModelChange={(option) =>
+                                handleMessageAIChange({
+                                  index,
+                                  updValue: { aiModel: option },
+                                })
+                              }
+                            />
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </InfiniteScroll>
+                  </div>
                 </div>
               ) : (
                 <ContentEmpty
