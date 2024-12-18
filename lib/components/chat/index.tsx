@@ -217,10 +217,12 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
 
           const responses = await Promise.all(promises);
 
-          const messagesResponse =
-            responses[0] as Response<RepeatedChatMessage | null>;
           const settingsResponse =
             responses[0] as Response<ChatSettings | null>;
+
+          const messagesResponse =
+            responses[1] as Response<RepeatedChatMessage | null>;
+
           if (settingsResponse.error || messagesResponse.error) {
             throw settingsResponse.error || messagesResponse.error;
           }
@@ -229,12 +231,14 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
               'Settings and messages should not be equal to null'
             );
           }
+          console.log(messagesResponse, settingsResponse, 'responses');
 
           setChatId(initChatId);
           setSettings(settingsResponse.data);
           setMessages(messagesResponse.data.messages);
 
           setIsInitLoading(false);
+          scrollToContainerBottomWithDelay();
         } catch (e) {
           console.log(e);
           setIsInitLoading(false);
