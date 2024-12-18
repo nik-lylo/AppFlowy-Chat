@@ -41,6 +41,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingBody, setGeneratingBody] = useState('');
   const [attachments, setAttachments] = useState<FilePreview[]>([]);
+  const [isInitLoading, setIsInitLoading] = useState<boolean>(true);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLInputElement>(null);
@@ -52,6 +53,9 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     setInputValue(option);
   }
   async function handleSubmit() {
+    if (isInitLoading) {
+      return;
+    }
     try {
       console.log(settings);
       setIsGenerating(true);
@@ -133,26 +137,11 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
         content: generetingContent,
         created_at: new Date(),
         meta_data: {},
-        reply_message_id: null,
+        reply_message_id: newMessage.message_id,
       };
+
       setMessages((prev) => {
-        return [
-          ...prev,
-          chatMessageAIResponse,
-          // {
-          //   author: {
-          //     id: '1',
-          //
-          //     name: 'AI',
-          //     meta: {},
-          //   },
-          //   content: generetingContent,
-          //   created_at: Date.now(),
-          //   message_id: v4(),
-          //   meta_data: {},
-          //   reply_message_id: newMessage.message_id,
-          // },
-        ];
+        return [...prev, chatMessageAIResponse];
       });
 
       scrollToContainerBottomWithDelay();
@@ -212,6 +201,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     async function loadChat() {
       if (initChatId) {
         try {
+          setIsInitLoading(true);
           const promises = [
             chatHttpServiceMain.getChatSettings(workspaceId, initChatId),
             chatHttpServiceMain.getChatMessages(
@@ -243,9 +233,14 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
           setChatId(initChatId);
           setSettings(settingsResponse.data);
           setMessages(messagesResponse.data.messages);
+
+          setIsInitLoading(false);
         } catch (e) {
           console.log(e);
+          setIsInitLoading(false);
         }
+      } else {
+        setIsInitLoading(false);
       }
     }
 
@@ -259,7 +254,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
       <div className='absolute left-0 top-0 flex h-full max-h-full w-full flex-col'>
         <header className='flex w-full flex-none items-center justify-between px-4 py-3'>
           <div className='text-sm text-ch-text-content'>
-            <div>Space Name...</div>{' '}
+            <div>{settings?.name}</div>{' '}
           </div>
           <div>
             <button className='rounded-lg bg-ch-accent px-3 py-1.5 text-sm font-medium text-white'>
@@ -267,44 +262,58 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
             </button>
           </div>
         </header>
+
+        <></>
         <div
           className='relative w-full flex-auto overflow-auto text-ch-text-content'
           ref={chatContainerRef}
         >
-          {messages.length > 0 ? (
-            <div className='appflowy-chat-content-wrap flex min-h-full flex-col gap-4'>
-              {messages.map((message, index, messages) => {
-                if (message.author.author_type === ChatAuthorType.Human) {
-                  return (
-                    <MessageUser
-                      avatar={userAvatar}
-                      message={message}
-                      key={message.message_id}
-                    />
-                  );
-                } else if (message.author.author_type === ChatAuthorType.AI) {
-                  return (
-                    <MessageAI
-                      message={message}
-                      key={message.message_id}
-                      isLastResponse={index === messages.length - 1}
-                      onAIModelChange={(option) =>
-                        handleMessageAIChange({
-                          index,
-                          updValue: { aiModel: option },
-                        })
-                      }
-                    />
-                  );
-                } else {
-                  return null;
-                }
-              })}
-
-              {isGenerating && <MessageLoading body={generatingBody} />}
+          {isInitLoading ? (
+            <div className='appflowy-chat-content-wrap flex min-h-full items-center justify-center py-4 text-sm text-ch-text-caption'>
+              Loading...
             </div>
           ) : (
-            <ContentEmpty handleOptionClick={handleEmptyScreenOptionClick} />
+            <>
+              {messages.length > 0 ? (
+                <div className='appflowy-chat-content-wrap flex min-h-full flex-col gap-4'>
+                  {messages.map((message, index, messages) => {
+                    if (message.author.author_type === ChatAuthorType.Human) {
+                      return (
+                        <MessageUser
+                          avatar={userAvatar}
+                          message={message}
+                          key={message.message_id}
+                        />
+                      );
+                    } else if (
+                      message.author.author_type === ChatAuthorType.AI
+                    ) {
+                      return (
+                        <MessageAI
+                          message={message}
+                          key={message.message_id}
+                          isLastResponse={index === messages.length - 1}
+                          onAIModelChange={(option) =>
+                            handleMessageAIChange({
+                              index,
+                              updValue: { aiModel: option },
+                            })
+                          }
+                        />
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+
+                  {isGenerating && <MessageLoading body={generatingBody} />}
+                </div>
+              ) : (
+                <ContentEmpty
+                  handleOptionClick={handleEmptyScreenOptionClick}
+                />
+              )}
+            </>
           )}
         </div>
         <div className='w-full'>
