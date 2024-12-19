@@ -9,7 +9,9 @@ function generateChatMessage(index: number): ChatMessage {
         author_type: ChatAuthorType.AI,
       },
       message_id: 1000 + index,
-      content: `MSG:${index}. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.`,
+      content: `# Heading 1
+## Heading 2
+### Heading 3`,
       created_at: new Date(),
       meta_data: {},
       reply_message_id: 100 + index - 1,

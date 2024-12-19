@@ -1,5 +1,6 @@
-import { Editor, EditorProvider, NodeType } from '@appflowyinc/editor';
+import { EditorProvider } from '@appflowyinc/editor';
 import { FC } from 'react';
+import EditorWrapper from '../editor-wrapper';
 
 interface IProps {
   body: string;
@@ -9,22 +10,7 @@ const MessageResponseContent: FC<IProps> = ({ body }) => {
   return (
     <div className='text-sm'>
       <EditorProvider>
-        <Editor
-          theme={'dark'}
-          readOnly
-          initialValue={[
-            {
-              type: NodeType.Paragraph,
-              data: { level: 1 },
-              delta: [
-                {
-                  insert: body,
-                },
-              ],
-              children: [],
-            },
-          ]}
-        />
+        <EditorWrapper body={body} />
       </EditorProvider>
     </div>
   );
