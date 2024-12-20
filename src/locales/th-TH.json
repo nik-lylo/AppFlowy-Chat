@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "เขียนอะไรบางอย่าง...",
+    "fontColorDefault": "ค่าเริ่มต้น",
+    "fontColorRed": "สีแดง",
+    "fontColorGreen": "สีเขียว",
+    "fontColorBlue": "สีฟ้า",
+    "fontColorYellow": "สีเหลือง",
+    "fontColorOrange": "ส้ม",
+    "fontColorPurple": "สีม่วง",
+    "fontColorPink": "สีชมพู",
+    "fontColorBrown": "สีน้ำตาล",
+    "fontColorGray": "สีเทา",
+    "backgroundColorDefault": "ค่าเริ่มต้น",
+    "backgroundColorRed": "สีแดง"
+  }
+}

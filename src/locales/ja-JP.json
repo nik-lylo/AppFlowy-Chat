@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "何か書いてください...",
+    "fontColorDefault": "デフォルト",
+    "fontColorRed": "赤",
+    "fontColorGreen": "緑",
+    "fontColorBlue": "青",
+    "fontColorYellow": "黄色",
+    "fontColorOrange": "オレンジ",
+    "fontColorPurple": "紫",
+    "fontColorPink": "ピンク",
+    "fontColorBrown": "茶色",
+    "fontColorGray": "グレー",
+    "backgroundColorDefault": "デフォルト",
+    "backgroundColorRed": "赤"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "写点东西...",
+    "fontColorDefault": "默认",
+    "fontColorRed": "红色的",
+    "fontColorGreen": "绿色的",
+    "fontColorBlue": "蓝色的",
+    "fontColorYellow": "黄色的",
+    "fontColorOrange": "橙子",
+    "fontColorPurple": "紫色的",
+    "fontColorPink": "粉色的",
+    "fontColorBrown": "棕色的",
+    "fontColorGray": "灰色的",
+    "backgroundColorDefault": "默认",
+    "backgroundColorRed": "红色的"
+  }
+}

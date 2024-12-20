@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Escreva alguma coisa...",
+    "fontColorDefault": "Padrão",
+    "fontColorRed": "Vermelho",
+    "fontColorGreen": "Verde",
+    "fontColorBlue": "Azul",
+    "fontColorYellow": "Amarelo",
+    "fontColorOrange": "Laranja",
+    "fontColorPurple": "Roxo",
+    "fontColorPink": "Rosa",
+    "fontColorBrown": "Marrom",
+    "fontColorGray": "Cinza",
+    "backgroundColorDefault": "Padrão",
+    "backgroundColorRed": "Vermelho"
+  }
+}

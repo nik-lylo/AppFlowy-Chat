@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "چیزی بنویس...",
+    "fontColorDefault": "پیش فرض",
+    "fontColorRed": "قرمز",
+    "fontColorGreen": "سبز",
+    "fontColorBlue": "آبی",
+    "fontColorYellow": "زرد",
+    "fontColorOrange": "نارنجی",
+    "fontColorPurple": "بنفش",
+    "fontColorPink": "صورتی",
+    "fontColorBrown": "قهوه ای",
+    "fontColorGray": "خاکستری",
+    "backgroundColorDefault": "پیش فرض",
+    "backgroundColorRed": "قرمز"
+  }
+}

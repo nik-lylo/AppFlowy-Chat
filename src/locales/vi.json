@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Viết gì đó...",
+    "fontColorDefault": "Mặc định",
+    "fontColorRed": "Màu đỏ",
+    "fontColorGreen": "Màu xanh lá",
+    "fontColorBlue": "Màu xanh da trời",
+    "fontColorYellow": "Màu vàng",
+    "fontColorOrange": "Quả cam",
+    "fontColorPurple": "Màu tím",
+    "fontColorPink": "Hồng",
+    "fontColorBrown": "Màu nâu",
+    "fontColorGray": "Xám",
+    "backgroundColorDefault": "Mặc định",
+    "backgroundColorRed": "Màu đỏ"
+  }
+}

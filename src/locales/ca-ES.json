@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Escriu alguna cosa...",
+    "fontColorDefault": "Per defecte",
+    "fontColorRed": "Vermell",
+    "fontColorGreen": "Verd",
+    "fontColorBlue": "Blau",
+    "fontColorYellow": "groc",
+    "fontColorOrange": "Taronja",
+    "fontColorPurple": "Lila",
+    "fontColorPink": "Rosa",
+    "fontColorBrown": "marró",
+    "fontColorGray": "Gris",
+    "backgroundColorDefault": "Per defecte",
+    "backgroundColorRed": "Vermell"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Напиши щось...",
+    "fontColorDefault": "За замовчуванням",
+    "fontColorRed": "Червоний",
+    "fontColorGreen": "Зелений",
+    "fontColorBlue": "Синій",
+    "fontColorYellow": "Жовтий",
+    "fontColorOrange": "Помаранчевий",
+    "fontColorPurple": "Фіолетовий",
+    "fontColorPink": "Рожевий",
+    "fontColorBrown": "Коричневий",
+    "fontColorGray": "Сірий",
+    "backgroundColorDefault": "За замовчуванням",
+    "backgroundColorRed": "Червоний"
+  }
+}

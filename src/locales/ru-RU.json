@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Напишите что-нибудь...",
+    "fontColorDefault": "По умолчанию",
+    "fontColorRed": "Красный",
+    "fontColorGreen": "Зеленый",
+    "fontColorBlue": "Синий",
+    "fontColorYellow": "Желтый",
+    "fontColorOrange": "Апельсин",
+    "fontColorPurple": "Фиолетовый",
+    "fontColorPink": "Розовый",
+    "fontColorBrown": "Коричневый",
+    "fontColorGray": "Серый",
+    "backgroundColorDefault": "По умолчанию",
+    "backgroundColorRed": "Красный"
+  }
+}

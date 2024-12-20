@@ -1,0 +1,88 @@
+{
+  "name": "@appflowyinc/editor",
+  "version": "0.0.0",
+  "description": "AppFlowy Web Editor",
+  "author": "Appflowy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AppFlowy-IO/AppFlowy-Web-Editor.git"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "style": "./dist/index.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./locales/*": "./dist/locales/*",
+    "./style": "./dist/index.css"
+  },
+  "scripts": {
+    "build": "vite build",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "vite",
+    "lint": "eslint -c eslint.config.js",
+    "analyze": "ANALYZE_MODE=true vite build"
+  },
+  "peerDependencies": {
+    "i18next": "^22.4.10",
+    "i18next-resources-to-backend": "^1.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.1.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-popover": "^1.1.4",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-separator": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-switch": "^1.1.2",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "@types/prismjs": "^1.26.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "is-hotkey": "^0.2.0",
+    "lucide-react": "^0.468.0",
+    "mdast-util-from-markdown": "^2.0.2",
+    "prismjs": "^1.29.0",
+    "quill-delta": "^5.1.0",
+    "sass": "^1.83.0",
+    "slate": "^0.112.0",
+    "slate-history": "^0.110.3",
+    "slate-react": "^0.112.0",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.4.16",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/is-hotkey": "^0.1.10",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.12.0",
+    "postcss": "^8.4.49",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "typescript": "4.9.5",
+    "typescript-eslint": "^8.15.0",
+    "vite": "^6.0.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-svgr": "^4.3.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Skriv något...",
+    "fontColorDefault": "Standard",
+    "fontColorRed": "Röd",
+    "fontColorGreen": "Grön",
+    "fontColorBlue": "Blå",
+    "fontColorYellow": "Gul",
+    "fontColorOrange": "Orange",
+    "fontColorPurple": "Purpur",
+    "fontColorPink": "Rosa",
+    "fontColorBrown": "Brun",
+    "fontColorGray": "Grå",
+    "backgroundColorDefault": "Standard",
+    "backgroundColorRed": "Röd"
+  }
+}

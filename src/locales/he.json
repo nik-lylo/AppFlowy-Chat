@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "תכתוב משהו...",
+    "fontColorDefault": "בְּרִירַת מֶחדָל",
+    "fontColorRed": "אָדוֹם",
+    "fontColorGreen": "יָרוֹק",
+    "fontColorBlue": "כְּחוֹל",
+    "fontColorYellow": "צָהוֹב",
+    "fontColorOrange": "כָּתוֹם",
+    "fontColorPurple": "סָגוֹל",
+    "fontColorPink": "וָרוֹד",
+    "fontColorBrown": "חוּם",
+    "fontColorGray": "אָפוֹר",
+    "backgroundColorDefault": "בְּרִירַת מֶחדָל",
+    "backgroundColorRed": "אָדוֹם"
+  }
+}

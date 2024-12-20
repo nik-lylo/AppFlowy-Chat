@@ -1,0 +1,17 @@
+{
+  "editor": {
+    "placeholder": "Napisz coś...",
+    "fontColorDefault": "Domyślny",
+    "fontColorRed": "Czerwony",
+    "fontColorGreen": "Zielony",
+    "fontColorBlue": "Niebieski",
+    "fontColorYellow": "Żółty",
+    "fontColorOrange": "Pomarańczowy",
+    "fontColorPurple": "Fioletowy",
+    "fontColorPink": "Różowy",
+    "fontColorBrown": "Brązowy",
+    "fontColorGray": "Szary",
+    "backgroundColorDefault": "Domyślny",
+    "backgroundColorRed": "Czerwony"
+  }
+}
