@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "strictNullChecks": true,
     "skipLibCheck": true,
@@ -25,18 +21,12 @@
     "emitDeclarationOnly": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@appflowy-chat/*": ["src/chat/*"]
     },
-    "types": [
-      "react-i18next"
-    ],
+    "types": ["react-i18next"],
     "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "src/@types",
-      "node_modules/@types"
-    ]
+    "typeRoots": ["src/@types", "node_modules/@types"]
   },
   "include": [
     "src",
@@ -45,9 +35,7 @@
     "postcss.config.ts",
     "vite.config.ts"
   ],
-  "exclude": [
-    "src/locales/**/*.json"
-  ],
+  "exclude": ["src/locales/**/*.json"],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -10,22 +10,23 @@ export function initI18n() {
   editorI18n = i18n.createInstance();
 
   editorI18n
-    .use(resourcesToBackend((language: string) => {
-      return import(`../locales/${language}.json`);
-    }))
+    .use(
+      resourcesToBackend((language: string) => {
+        return import(`../locales/${language}.json`);
+      })
+    )
     .use(initReactI18next)
     .init({
-      resources: { en: { editor: en.editor } },
+      resources: { en: { editor: en } },
       lng: 'en',
       fallbackLng: 'en',
-      defaultNS: 'editor',
       interpolation: {
         escapeValue: false,
       },
       keySeparator: '.',
       cache: {
         enabled: true,
-        prefix: `i18next_editor_`,
+        prefix: `i18next_chat_`,
       },
     });
   return editorI18n;
