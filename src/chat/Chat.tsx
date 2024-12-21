@@ -328,18 +328,6 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   return (
     <div className='bg-ch-bg-base relative flex h-full flex-auto flex-col overflow-auto'>
       <div className='absolute left-0 top-0 flex h-full max-h-full w-full flex-col'>
-        <header className='flex w-full flex-none items-center justify-between px-4 py-3'>
-          <div className='text-foreground text-sm'>
-            <div>{settings?.name}</div>
-            {' '}
-          </div>
-          <div>
-            <button className='bg-ch-accent rounded-lg px-3 py-1.5 text-sm font-medium text-white'>
-              Share
-            </button>
-          </div>
-        </header>
-
         <div className='text-foreground relative flex w-full flex-auto overflow-auto'>
           {isInitLoading ? (
             <div
