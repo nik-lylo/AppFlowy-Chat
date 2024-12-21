@@ -15,6 +15,7 @@ export default {
         13: '3.25rem',
         30: '7.5rem',
       },
+
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -105,7 +106,7 @@ export default {
         1: '0px 4px 8px -8px rgba(31, 35, 41, 0.06), 0px 6px 12px 0px rgba(31, 35, 41, 0.04), 0px 8px 24px 8px rgba(31, 35, 41, 0.04)',
         'light-menu':
           '0px 4px 8px 0px rgba(31, 35, 41, 0.03), 0px 3px 6px -6px rgba(31, 35, 41, 0.05), 0px 6px 18px 6px rgba(31, 35, 41, 0.03)',
-      },
+      }
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports

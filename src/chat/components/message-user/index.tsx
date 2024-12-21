@@ -11,7 +11,7 @@ const MessageUser: FC<IProp> = ({ message, avatar }) => {
   return (
     <div className="flex w-full justify-end">
       <div className="flex max-w-[25rem] gap-3">
-        <div className="rounded-2xl bg-ch-fill-card-user px-4 py-2 text-sm">
+        <div className="rounded-2xl bg-secondary px-4 py-2 text-sm">
           {message.content}
         </div>
 
