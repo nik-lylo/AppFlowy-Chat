@@ -104,10 +104,10 @@ const ButtonBarAIPopover: FC<Props> = ({
             id={'simple-popover'}
             className='bar-ai-popover-full'
           >
-            <div className='bg-white p-2'>
+            <div className='bg-background p-2'>
               {optionsData.options.map((option) => (
                 <div
-                  className='text-ch-text-content flex w-full min-w-52 cursor-pointer justify-between px-1.5 py-1 text-sm tracking-wide'
+                  className='text-foreground flex w-full min-w-52 cursor-pointer justify-between px-1.5 py-1 text-sm tracking-wide'
                   key={option.value}
                   onClick={() => handleOptionChange(option.value)}
                 >

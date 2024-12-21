@@ -329,7 +329,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
     <div className='bg-ch-bg-base relative flex h-full flex-auto flex-col overflow-auto'>
       <div className='absolute left-0 top-0 flex h-full max-h-full w-full flex-col'>
         <header className='flex w-full flex-none items-center justify-between px-4 py-3'>
-          <div className='text-ch-text-content text-sm'>
+          <div className='text-foreground text-sm'>
             <div>{settings?.name}</div>
             {' '}
           </div>
@@ -340,10 +340,10 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
           </div>
         </header>
 
-        <div className='text-ch-text-content relative flex w-full flex-auto overflow-auto'>
+        <div className='text-foreground relative flex w-full flex-auto overflow-auto'>
           {isInitLoading ? (
             <div
-              className='appflowy-chat-content-wrap text-ch-text-caption flex min-h-full items-center justify-center py-4 text-sm'>
+              className='appflowy-chat-content-wrap text-secondary-foreground flex min-h-full items-center justify-center py-4 text-sm'>
               Loading...
             </div>
           ) : (
