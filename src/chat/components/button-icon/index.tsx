@@ -19,7 +19,6 @@ const ButtonBarAI: FC<Props> = ({
   active = false,
   activeClass = 'bg-ch-fill-hover',
   colorClass = 'text-ch-primary-gray2',
-
   tooltip,
   children,
   ...rest

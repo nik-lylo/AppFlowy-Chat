@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from 'react';
 import './index.css';
 import { FilePreview, ResponseFormatMode, ResponseFormatType } from '@/types';
 import FormatBarOptions from '../format-bar-options';
-import { FormatTextButtons } from '@appflowy-chat/utils/formatTextButtons';
+import { useFormatTextButtons } from '@appflowy-chat/utils/formatTextButtons';
 import ButtonIcon from '../button-icon';
 import { SupportedAttachmentExtensions } from '@appflowy-chat/utils/supportedAttachmentExtensions';
 import FilesPreview from '../files-preview';
@@ -47,6 +47,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
   ) => {
     const { t } = useTranslation();
 
+    const FormatTextButtons = useFormatTextButtons()
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (isGenerating) {

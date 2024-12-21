@@ -4,8 +4,8 @@ import MessageResponseContent from "../message-response-content";
 import AvatarAI from "../avatar-ai";
 import ActionBarAI from "../action-bar-ai";
 import {
-  ActionBarAIButtonsHoverRes,
-  ActionBarAIButtonsLastRes,
+  useActionBarAIButtonsLastRes,
+  useActionBarAIButtonsHoverRes,
 } from "@appflowy-chat/utils/actionBarAIButtons";
 import { ChatMessage } from "@/types/ai";
 import "./index.css";
@@ -19,6 +19,9 @@ interface IProp {
 
 const MessageAI: FC<IProp> = ({ message, isLastResponse, onAIModelChange }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const ActionBarAIButtonsLastRes = useActionBarAIButtonsLastRes();
+  const ActionBarAIButtonsHoverRes = useActionBarAIButtonsHoverRes();
 
   function handleOnAIModelChange(option: AIModelName) {
     console.log(option, "option");
