@@ -1,4 +1,9 @@
-import { Tooltip } from "@mui/material";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { FC, ReactElement } from "react";
 import "./index.css";
 
@@ -9,9 +14,12 @@ interface IProp {
 
 const TooltipDefault: FC<IProp> = ({ children, title }) => {
   return (
-    <Tooltip classes={{ popperInteractive: "tooltip-default" }} title={title}>
-      {children}
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipContent>{title}</TooltipContent>
+        <TooltipTrigger>{children}</TooltipTrigger>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 

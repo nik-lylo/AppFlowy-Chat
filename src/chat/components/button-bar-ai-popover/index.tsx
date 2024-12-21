@@ -1,4 +1,5 @@
-import { Popover } from '@mui/material';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 import {
   ComponentProps,
   FC,
@@ -36,21 +37,15 @@ const ButtonBarAIPopover: FC<Props> = ({
   onOptionChange,
   onPopoverStateChange,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [shortOptionName, setShortOptionName] = useState<string>('');
 
   const rootRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
-    setIsOpen(true);
-    setAnchorEl(e.currentTarget);
     handlePopoverStateChange('open');
   }
   function handleClose() {
-    setIsOpen(false);
-    setAnchorEl(null);
     setTimeout(() => {
       handlePopoverStateChange('close');
     }, 300);
@@ -68,7 +63,6 @@ const ButtonBarAIPopover: FC<Props> = ({
     onOptionChange(value);
     handleClose();
   }
-  const id = isOpen ? 'simple-popover' : undefined;
 
   useEffect(() => {
     if (optionsData.type === 'text') {
@@ -84,33 +78,23 @@ const ButtonBarAIPopover: FC<Props> = ({
   }, [activeOption, optionsData]);
 
   return (
+    <Popover>
     <div ref={rootRef}>
+      <PopoverTrigger asChild>
       <ButtonBarAI
         icon={icon}
-        aria-describedby={id}
+        aria-describedby={'simple-popover'}
         withDropdownIcon={true}
         tooltip={tooltip}
         btnText={shortOptionName}
         onClick={handleClick}
       />
+      </PopoverTrigger>
 
       {optionsData.type === 'text' && (
-        <Popover
-          id={id}
+        <PopoverContent
+          id={'simple-popover'}
           className='bar-ai-popover-full'
-          open={isOpen}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          classes={{ paper: '-mt-2' }}
-          anchorOrigin={{
-            horizontal: 'center',
-            vertical: 'top',
-          }}
-          transformOrigin={{
-            horizontal: 'center',
-            vertical: 'bottom',
-          }}
-          closeAfterTransition={true}
         >
           <div className='bg-white p-2'>
             {optionsData.options.map((option) => (
@@ -126,26 +110,13 @@ const ButtonBarAIPopover: FC<Props> = ({
               </div>
             ))}
           </div>
-        </Popover>
+        </PopoverContent>
       )}
 
       {optionsData.type === 'btn' && (
-        <Popover
-          id={id}
+        <PopoverContent
+          id={'simple-popover'}
           className='bar-ai-popover-btns'
-          open={isOpen}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          classes={{ paper: 'mt-1' }}
-          anchorOrigin={{
-            horizontal: 'center',
-            vertical: 'bottom',
-          }}
-          transformOrigin={{
-            horizontal: 'center',
-            vertical: 'top',
-          }}
-          closeAfterTransition={true}
         >
           <FormatBarOptions
             options={optionsData.options}
@@ -160,9 +131,10 @@ const ButtonBarAIPopover: FC<Props> = ({
               </button>
             </TooltipDefault>
           </FormatBarOptions>
-        </Popover>
+        </PopoverContent>
       )}
     </div>
+    </Popover>
   );
 };
 

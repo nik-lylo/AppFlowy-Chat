@@ -27,8 +27,6 @@ import {
   QuestionStreamValue,
   RelatedQuestion,
 } from '@/types/ai';
-import '@/styles/index.scss';
-import { initI18n, EditorI18nContext } from '@/i18n/config';
 
 import { Response } from '@/types/response';
 import { v4 } from 'uuid';
@@ -43,7 +41,6 @@ interface IProp {
   initChatId: string;
 }
 
-const editorI18n = initI18n();
 
 const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -63,8 +60,8 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [attachments, setAttachments] = useState<FilePreview[]>([]);
   const [isInitLoading, setIsInitLoading] = useState<boolean>(true);
 
-  const chatContainerRef = useRef<HTMLDivElement>(null);
-  const chatInputRef = useRef<HTMLInputElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const chatInputRef = useRef<HTMLInputElement | null>(null);
 
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setInputValue(e.target.value);
@@ -329,119 +326,120 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   }, [workspaceId, initChatId, scrollToContainerBottomWithDelay]);
 
   return (
-    <EditorI18nContext.Provider value={editorI18n}>
-      <div className='bg-ch-bg-base relative flex h-full flex-auto flex-col overflow-auto'>
-        <div className='absolute left-0 top-0 flex h-full max-h-full w-full flex-col'>
-          <header className='flex w-full flex-none items-center justify-between px-4 py-3'>
-            <div className='text-ch-text-content text-sm'>
-              <div>{settings?.name}</div>{' '}
-            </div>
-            <div>
-              <button className='bg-ch-accent rounded-lg px-3 py-1.5 text-sm font-medium text-white'>
-                Share
-              </button>
-            </div>
-          </header>
-
-          <div className='text-ch-text-content relative flex w-full flex-auto overflow-auto'>
-            {isInitLoading ? (
-              <div className='appflowy-chat-content-wrap text-ch-text-caption flex min-h-full items-center justify-center py-4 text-sm'>
-                Loading...
-              </div>
-            ) : (
-              <>
-                {messages.length > 0 ? (
-                  <div
-                    className='h-30 flex min-h-full w-full flex-col-reverse overflow-auto'
-                    id='appflowy-chat-content-container'
-                    ref={chatContainerRef}
-                  >
-                    <div className='appflowy-chat-content-wrap'>
-                      <InfiniteScroll
-                        dataLength={messages.length}
-                        next={loadMoreMessages}
-                        inverse={true} //
-                        hasMore={hasMoreMessages}
-                        loader={
-                          <div className='text-ch-text-caption w-full text-center'>
-                            Loading...
-                          </div>
-                        }
-                        scrollableTarget='appflowy-chat-content-container'
-                        className='flex flex-col-reverse gap-4'
-                      >
-                        {!isGenerating && (
-                          <RelatedQuestionsBlock
-                            relatedQuestions={relatedQuestions}
-                            onQuestionClick={handleClickRelatedQuestion}
-                          />
-                        )}
-                        {isGenerating && (
-                          <MessageLoading body={generatingBody} />
-                        )}
-                        {messages.map((message, index) => {
-                          if (
-                            message.author.author_type === ChatAuthorType.Human
-                          ) {
-                            return (
-                              <MessageUser
-                                avatar={userAvatar}
-                                message={message}
-                                key={message.message_id}
-                              />
-                            );
-                          } else if (
-                            message.author.author_type === ChatAuthorType.AI
-                          ) {
-                            return (
-                              <MessageAI
-                                message={message}
-                                key={message.message_id}
-                                isLastResponse={index === 0}
-                                onAIModelChange={(option) =>
-                                  handleMessageAIChange({
-                                    index,
-                                    updValue: { aiModel: option },
-                                  })
-                                }
-                              />
-                            );
-                          } else {
-                            return null;
-                          }
-                        })}
-                      </InfiniteScroll>
-                    </div>
-                  </div>
-                ) : (
-                  <ContentEmpty
-                    handleOptionClick={handleEmptyScreenOptionClick}
-                  />
-                )}
-              </>
-            )}
+    <div className='bg-ch-bg-base relative flex h-full flex-auto flex-col overflow-auto'>
+      <div className='absolute left-0 top-0 flex h-full max-h-full w-full flex-col'>
+        <header className='flex w-full flex-none items-center justify-between px-4 py-3'>
+          <div className='text-ch-text-content text-sm'>
+            <div>{settings?.name}</div>
+            {' '}
           </div>
-          <div className='w-full'>
-            <div className='appflowy-chat-content-wrap pb-4 pt-2'>
-              <ChatInput
-                value={inputValue}
-                formatMode={responseFormatMode}
-                formatType={responseFormatType}
-                isGenerating={isGenerating}
-                attachments={attachments}
-                onAttachmentsChange={handleAttachmentsChange}
-                onChange={handleInputChange}
-                onSubmit={handleSubmit}
-                onStop={handleStop}
-                onChangeFormatMode={handleChangeFormatMode}
-                onChangeFormatType={handleChangeFormatType}
-                ref={chatInputRef}
-              />
+          <div>
+            <button className='bg-ch-accent rounded-lg px-3 py-1.5 text-sm font-medium text-white'>
+              Share
+            </button>
+          </div>
+        </header>
+
+        <div className='text-ch-text-content relative flex w-full flex-auto overflow-auto'>
+          {isInitLoading ? (
+            <div
+              className='appflowy-chat-content-wrap text-ch-text-caption flex min-h-full items-center justify-center py-4 text-sm'>
+              Loading...
             </div>
+          ) : (
+            <>
+              {messages.length > 0 ? (
+                <div
+                  className='h-30 flex min-h-full w-full flex-col-reverse overflow-auto'
+                  id='appflowy-chat-content-container'
+                  ref={chatContainerRef}
+                >
+                  <div className='appflowy-chat-content-wrap'>
+                    <InfiniteScroll
+                      dataLength={messages.length}
+                      next={loadMoreMessages}
+                      inverse={true} //
+                      hasMore={hasMoreMessages}
+                      loader={
+                        <div className='text-ch-text-caption w-full text-center'>
+                          Loading...
+                        </div>
+                      }
+                      scrollableTarget='appflowy-chat-content-container'
+                      className='flex flex-col-reverse gap-4'
+                    >
+                      {!isGenerating && (
+                        <RelatedQuestionsBlock
+                          relatedQuestions={relatedQuestions}
+                          onQuestionClick={handleClickRelatedQuestion}
+                        />
+                      )}
+                      {isGenerating && (
+                        <MessageLoading body={generatingBody}/>
+                      )}
+                      {messages.map((message, index) => {
+                        if (
+                          message.author.author_type === ChatAuthorType.Human
+                        ) {
+                          return (
+                            <MessageUser
+                              avatar={userAvatar}
+                              message={message}
+                              key={message.message_id}
+                            />
+                          );
+                        } else if (
+                          message.author.author_type === ChatAuthorType.AI
+                        ) {
+                          return (
+                            <MessageAI
+                              message={message}
+                              key={message.message_id}
+                              isLastResponse={index === 0}
+                              onAIModelChange={(option) =>
+                                handleMessageAIChange({
+                                  index,
+                                  updValue: { aiModel: option },
+                                })
+                              }
+                            />
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </InfiniteScroll>
+                  </div>
+                </div>
+              ) : (
+                <ContentEmpty
+                  handleOptionClick={handleEmptyScreenOptionClick}
+                />
+              )}
+            </>
+          )}
+        </div>
+        <div className='w-full'>
+          <div className='appflowy-chat-content-wrap pb-4 pt-2'>
+            <ChatInput
+              value={inputValue}
+              formatMode={responseFormatMode}
+              formatType={responseFormatType}
+              isGenerating={isGenerating}
+              attachments={attachments}
+              onAttachmentsChange={handleAttachmentsChange}
+              onChange={handleInputChange}
+              onSubmit={handleSubmit}
+              onStop={handleStop}
+              onChangeFormatMode={handleChangeFormatMode}
+              onChangeFormatType={handleChangeFormatType}
+              ref={chatInputRef}
+            />
           </div>
         </div>
       </div>
-    </EditorI18nContext.Provider>
+    </div>
+
   );
 };
 

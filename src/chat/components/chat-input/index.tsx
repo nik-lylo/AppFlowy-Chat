@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { Textarea } from '@/components/ui/textarea';
 import ButtonIconSubmit from '../button-icon-submit';
 import IconArrowUp from '@/assets/icons/arrow-up.svg?react';
 import IconStop from '@/assets/icons/stop.svg?react';
@@ -28,7 +28,7 @@ interface IProps {
   onStop: () => void;
 }
 
-const ChatInput = forwardRef<HTMLInputElement, IProps>(
+const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
   (
     {
       onStop,
@@ -54,7 +54,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       }
       onSubmit();
     }
-    function handleOnKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    function handleOnKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
       if (e.key !== 'Enter') {
         return;
       }
@@ -76,7 +76,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       }
 
       if (typeof ref === 'object' && ref?.current) {
-        ref.current.focus();
+        ref.current?.focus();
       }
     }
 
@@ -139,18 +139,15 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         )}
 
         {/* prettier-ignore */}
-        <TextField
+        <Textarea
         id="appflowy-chat-input"
         placeholder={(formatMode === 'auto'?t('chat.input.placeholder'):t('chat.input.placeholderFormat'))||''}
-        multiline
-        fullWidth
-        className="appflowy-chat-input-root"
+        className="appflowy-chat-input-root focus-visible:!ring-0 !border-none !outline-none !shadow-transparent"
         value={value}
         onChange={onChange}
         onKeyDown={handleOnKeyDown}
-        inputRef={ref}
+        ref={ref}
         autoFocus
-        
         
       />
         <div className='flex justify-between px-2'>

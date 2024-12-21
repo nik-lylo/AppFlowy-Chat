@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -21,8 +21,8 @@ const buttonVariants = cva(
       },
       color: {
         default: '',
-        primary: 'text-primary',
-        secondary: 'text-secondary-foreground',
+        primary: '!text-primary',
+        secondary: '!text-secondary-foreground',
       },
       size: {
         default: 'h-8 px-2 rounded-[8px]',
@@ -45,10 +45,11 @@ export interface ButtonProps
   asChild?: boolean;
   color?: 'default' | 'primary' | 'secondary';
   startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, color, startIcon, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, color, startIcon, endIcon, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
@@ -58,6 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {startIcon}
         {props.children}
+        {endIcon}
       </Comp>
     );
   },
