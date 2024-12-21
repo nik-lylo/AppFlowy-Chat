@@ -1,12 +1,12 @@
 {
-  "name": "appflowy-chat",
+  "name": "@appflowyinc/ai-chat",
   "version": "0.0.0",
-  "description": "AppFlowy Web Editor",
+  "description": "AppFlowy Web AI Chat",
   "author": "Appflowy",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AppFlowy-IO/AppFlowy-Web-Editor.git"
+    "url": "https://github.com/AppFlowy-IO/AppFlowy-Chat.git"
   },
   "type": "module",
   "main": "dist/index.js",
@@ -39,14 +39,11 @@
     "i18next-resources-to-backend": "^1.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^14.1.0"
+    "react-i18next": "^14.1.0",
+    "@appflowyinc/editor": "^0.0.28"
   },
   "dependencies": {
-    "@appflowyinc/editor": "^0.0.16",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
     "@jest/globals": "^29.7.0",
-    "@mui/material": "^6.2.1",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-popover": "^1.1.4",
     "@radix-ui/react-select": "^2.1.4",
@@ -62,7 +59,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.16",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.6.2",
+    "typescript": "4.9.5",
     "uuid": "^11.0.3"
   },
   "devDependencies": {

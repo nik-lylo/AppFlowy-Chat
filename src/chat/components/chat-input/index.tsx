@@ -1,5 +1,4 @@
-import { TextField } from '@mui/material';
-import ButtonIconSubmit from '../button-icon-submit';
+import { Textarea } from '@/components/ui/textarea';
 import IconArrowUp from '@/assets/icons/arrow-up.svg?react';
 import IconStop from '@/assets/icons/stop.svg?react';
 import IconClip from '@/assets/icons/clip.svg?react';
@@ -7,12 +6,13 @@ import { ChangeEvent, FormEvent, forwardRef, KeyboardEvent } from 'react';
 import './index.css';
 import { FilePreview, ResponseFormatMode, ResponseFormatType } from '@/types';
 import FormatBarOptions from '../format-bar-options';
-import { FormatTextButtons } from '@appflowy-chat/utils/formatTextButtons';
+import { useFormatTextButtons } from '@appflowy-chat/utils/formatTextButtons';
 import ButtonIcon from '../button-icon';
 import { SupportedAttachmentExtensions } from '@appflowy-chat/utils/supportedAttachmentExtensions';
 import FilesPreview from '../files-preview';
 import { v4 } from 'uuid';
 import { useTranslation } from '@/i18n';
+import { Button } from '@/components/ui/button';
 
 interface IProps {
   value: string;
@@ -28,7 +28,7 @@ interface IProps {
   onStop: () => void;
 }
 
-const ChatInput = forwardRef<HTMLInputElement, IProps>(
+const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
   (
     {
       onStop,
@@ -47,6 +47,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
   ) => {
     const { t } = useTranslation();
 
+    const FormatTextButtons = useFormatTextButtons()
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (isGenerating) {
@@ -54,7 +55,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       }
       onSubmit();
     }
-    function handleOnKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    function handleOnKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
       if (e.key !== 'Enter') {
         return;
       }
@@ -76,7 +77,7 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
       }
 
       if (typeof ref === 'object' && ref?.current) {
-        ref.current.focus();
+        ref.current?.focus();
       }
     }
 
@@ -139,18 +140,15 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
         )}
 
         {/* prettier-ignore */}
-        <TextField
+        <Textarea
         id="appflowy-chat-input"
-        placeholder={(formatMode === 'auto'?t('chat.input.placeholder'):t('chat.input.placeholderFormat'))||''}
-        multiline
-        fullWidth
-        className="appflowy-chat-input-root"
+        placeholder={(formatMode === 'auto'?t('input.placeholder'):t('input.placeholderFormat'))||''}
+        className="appflowy-chat-input-root focus-visible:!ring-0 !border-none !outline-none !shadow-transparent"
         value={value}
         onChange={onChange}
         onKeyDown={handleOnKeyDown}
-        inputRef={ref}
+        ref={ref}
         autoFocus
-        
         
       />
         <div className='flex justify-between px-2'>
@@ -161,17 +159,16 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
               onClick={handleClickFormatModeButton}
             >
               {formatMode === 'auto'
-                ? t('chat.input.button.format')
-                : t('chat.input.button.auto')}
+                ? t('input.button.format')
+                : t('input.button.auto')}
             </button>
           </div>
           <div className='flex items-start gap-2'>
             <ButtonIcon
-              className='relative'
+              className='relative text-ch-icon'
               icon={<IconClip />}
-              tooltip='chat.input.button.attach'
+              tooltip={t('input.button.attach')}
               disabled={isGenerating}
-              colorClass='text-ch-icon'
             >
               <input
                 type='file'
@@ -185,20 +182,21 @@ const ChatInput = forwardRef<HTMLInputElement, IProps>(
               />
             </ButtonIcon>
             {isGenerating ? (
-              <ButtonIconSubmit
-                className='text-ch-accent disabled:text-ch-primary-gray'
-                classSize='w-6 h-6'
-                icon={<IconStop className='h-5 w-5' />}
-                type='button'
+              <Button
+                startIcon={<IconStop />}
+                size={'icon'}
+                variant={'ghost'}
+                color={'primary'}
                 onClick={onStop}
               />
             ) : (
-              <ButtonIconSubmit
-                className='text-ch-accent disabled:text-ch-text-disabled'
-                classSize='w-6 h-6'
+              <Button
+                size={'icon'}
+                variant={'ghost'}
                 disabled={value.trim().length < 3}
-                icon={<IconArrowUp className='h-5 w-5' />}
+                startIcon={<IconArrowUp />}
                 type='submit'
+                color={'primary'}
               />
             )}
           </div>

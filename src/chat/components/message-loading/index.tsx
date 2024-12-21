@@ -20,7 +20,7 @@ const MessageLoading: FC<IProp> = ({ body }) => {
             <MessageResponseContent body={body} />
           ) : (
             <div className='text-ch-primary-gray2 flex items-center gap-2 text-sm'>
-              <div>{t('chat.loading.generate')}</div>
+              <div>{t('loading.generate')}</div>
               <LoaderDots />
             </div>
           )}

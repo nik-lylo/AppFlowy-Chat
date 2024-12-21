@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import '@/styles/index.scss';
-import Chat from '@/chat/Chat';
+import Chat from '@/chat';
 
 const languages = ['en'];
 

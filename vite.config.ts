@@ -60,7 +60,7 @@ export default defineConfig(({ command }) => {
       : {
           lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'Editor',
+            name: 'Chat',
             formats: ['es', 'cjs'],
             fileName: (format: string) =>
               `index.${format === 'es' ? 'mjs' : 'js'}`,
@@ -73,6 +73,7 @@ export default defineConfig(({ command }) => {
               'i18next',
               'react-i18next',
               'i18next-resources-to-backend',
+              '@appflowyinc/editor'
             ],
             output: {
               globals: {
@@ -80,6 +81,7 @@ export default defineConfig(({ command }) => {
                 'react-dom': 'ReactDOM',
                 i18next: 'i18next',
                 'react-i18next': 'reactI18next',
+                '@appflowyinc/editor': 'Editor',
               },
             },
           },

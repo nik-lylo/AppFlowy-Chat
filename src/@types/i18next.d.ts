@@ -7,7 +7,7 @@ declare module 'i18next' {
   // Extend CustomTypeOptions
   interface CustomTypeOptions {
     // custom namespace type, if you changed it
-    defaultNS: 'editor';
+    defaultNS: 'chat';
     // custom resources type
     resources: typeof en;
     // other
