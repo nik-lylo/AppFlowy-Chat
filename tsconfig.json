@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "strictNullChecks": true,
     "skipLibCheck": true,
@@ -24,9 +28,14 @@
       "@/*": ["src/*"],
       "@appflowy-chat/*": ["src/chat/*"]
     },
-    "types": ["react-i18next"],
+    "types": [
+      "react-i18next"
+    ],
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["src/@types", "node_modules/@types"]
+    "typeRoots": [
+      "src/@types",
+      "node_modules/@types"
+    ]
   },
   "include": [
     "src",

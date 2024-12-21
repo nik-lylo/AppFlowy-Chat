@@ -141,7 +141,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
         {/* prettier-ignore */}
         <Textarea
         id="appflowy-chat-input"
-        placeholder={(formatMode === 'auto'?t('chat.input.placeholder'):t('chat.input.placeholderFormat'))||''}
+        placeholder={(formatMode === 'auto'?t('input.placeholder'):t('input.placeholderFormat'))||''}
         className="appflowy-chat-input-root focus-visible:!ring-0 !border-none !outline-none !shadow-transparent"
         value={value}
         onChange={onChange}
@@ -158,8 +158,8 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
               onClick={handleClickFormatModeButton}
             >
               {formatMode === 'auto'
-                ? t('chat.input.button.format')
-                : t('chat.input.button.auto')}
+                ? t('input.button.format')
+                : t('input.button.auto')}
             </button>
           </div>
           <div className='flex items-start gap-2'>

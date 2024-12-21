@@ -35,7 +35,7 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
       color: 'default',
-    },
+    }
   },
 );
 
@@ -64,6 +64,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
+
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };

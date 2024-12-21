@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from '@/locales/en.json';
-import resourcesToBackend from 'i18next-resources-to-backend';
 import { createContext } from 'react';
 
 let chatI18n: typeof i18n | null = null;
@@ -10,16 +9,12 @@ export function initI18n() {
   chatI18n = i18n.createInstance();
 
   chatI18n
-    .use(
-      resourcesToBackend((language: string) => {
-        return import(`../locales/${language}.json`);
-      })
-    )
     .use(initReactI18next)
     .init({
-      resources: { en: { chat: en } },
+      resources: { en: { chat: en.chat } },
       lng: 'en',
       fallbackLng: 'en',
+      defaultNS: 'chat',
       interpolation: {
         escapeValue: false,
       },

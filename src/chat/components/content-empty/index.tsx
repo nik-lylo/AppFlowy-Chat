@@ -16,7 +16,7 @@ const ContentEmpty: FC<IProps> = ({ handleOptionClick }) => {
           <Logo />
         </div>
         <div className='text-ch-text-title mb-8 text-center'>
-          {t('chat.title.greeting')}
+          {t('title.greeting')}
         </div>
         <div className='flex flex-col items-center gap-4'>
           {ContentEmptyOptions.map((option) => (

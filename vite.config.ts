@@ -60,7 +60,7 @@ export default defineConfig(({ command }) => {
       : {
           lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'Editor',
+            name: 'Chat',
             formats: ['es', 'cjs'],
             fileName: (format: string) =>
               `index.${format === 'es' ? 'mjs' : 'js'}`,

@@ -123,7 +123,7 @@ const ButtonBarAIPopover: FC<Props> = ({
             className='px-1 py-0.5'
             activeOption={activeOption}
           >
-            <TooltipDefault title={t('chat.tooltip.regenerate')}>
+            <TooltipDefault title={t('tooltip.regenerate')}>
               <button className='ml-1 grid h-6 flex-shrink-0 place-items-center'>
                 <div className='w-4e h-4e bg-ch-accent grid h-2.5 w-2.5 place-items-center rounded-full'>
                   <IconRegenerate className='h-3 w-3 text-white' />

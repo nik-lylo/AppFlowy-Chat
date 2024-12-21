@@ -19,7 +19,7 @@ const RelatedQuestions: FC<IProps> = ({
       {relatedQuestions.length > 0 && (
         <div className='-mt-4 mb-2'>
           <div className='text-ch-text-secondary mb-2 text-sm font-semibold'>
-            {t('chat.suggestion.title')}
+            {t('suggestion.title')}
           </div>
           <div className='flex flex-col gap-1'>
             {relatedQuestions.map((question) => (
