@@ -1,6 +1,5 @@
 import Logo from '@/assets/logo.svg?react';
-import { ContentEmptyOptions } from '@appflowy-chat/utils/contentEmptyOptions';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from '@/i18n';
 
 interface IProps {
@@ -9,6 +8,12 @@ interface IProps {
 
 const ContentEmpty: FC<IProps> = ({ handleOptionClick }) => {
   const { t } = useTranslation();
+  const options = useMemo(() => [
+    t("prompt.kanban"),
+    t("prompt.gtd"),
+    t("prompt.rust"),
+    t("prompt.recipe"),
+  ], [t]);
   return (
     <div className='appflowy-chat-content-wrap flex min-h-min items-center justify-center'>
       <div className='w-full max-w-[28rem] text-sm'>
@@ -19,13 +24,13 @@ const ContentEmpty: FC<IProps> = ({ handleOptionClick }) => {
           {t('title.greeting')}
         </div>
         <div className='flex flex-col items-center gap-4'>
-          {ContentEmptyOptions.map((option) => (
+          {options.map((option) => (
             <button
               className='border-ch-line-border bg-ch-bg-base text-ch-text-caption hover:bg-ch-fill-active w-fit rounded-2xl border px-4 py-2 text-sm shadow-card transition-colors'
               key={option}
-              onClick={() => handleOptionClick(t(option))}
+              onClick={() => handleOptionClick(option)}
             >
-              {t(option)}
+              {option}
             </button>
           ))}
           <button></button>

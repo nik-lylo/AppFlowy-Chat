@@ -7,6 +7,8 @@ import IconParagraph from '@/assets/icons/paragraph.svg?react';
 import IconBulletList from '@/assets/icons/bullet-list.svg?react';
 import IconNumList from '@/assets/icons/num-list.svg?react';
 import IconTable from '@/assets/icons/table.svg?react';
+import { getI18n } from '@/i18n/config';
+const t = getI18n()?.t;
 
 export const FormatTextButtons: ActionBarAIButtonDataBtn<ResponseFormatType>[] =
   [
@@ -14,37 +16,37 @@ export const FormatTextButtons: ActionBarAIButtonDataBtn<ResponseFormatType>[] =
     {
       icon: <IconImage />,
       name: 'image_only',
-      tooltip: 'chat.tooltip.imageOnly',
+      tooltip: t?.('tooltip.imageOnly') || '',
       type: 'btn',
     },
     {
       icon: <IconImageText />,
       name: 'image_text',
-      tooltip: 'chat.tooltip.imageText',
+      tooltip: t?.('tooltip.imageText') || '',
       type: 'btn',
     },
     {
       icon: <IconParagraph />,
       name: 'paragraph',
-      tooltip: 'chat.tooltip.paragraph',
+      tooltip: t?.('tooltip.paragraph') || '',
       type: 'btn',
     },
     {
       icon: <IconBulletList />,
       name: 'bullet_list',
-      tooltip: 'chat.tooltip.bulletList',
+      tooltip: t?.('tooltip.bulletList') || '',
       type: 'btn',
     },
     {
       icon: <IconNumList />,
       name: 'number_list',
-      tooltip: 'chat.tooltip.numList',
+      tooltip: t?.('tooltip.numList') || '',
       type: 'btn',
     },
     {
       icon: <IconTable />,
       name: 'table',
-      tooltip: 'chat.tooltip.table',
+      tooltip: t?.('tooltip.table') || '',
       type: 'btn',
     },
   ];

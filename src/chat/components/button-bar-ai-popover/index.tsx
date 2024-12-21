@@ -42,7 +42,7 @@ const ButtonBarAIPopover: FC<Props> = ({
   const rootRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
-  function handleClick(e: MouseEvent<HTMLButtonElement>) {
+  function handleClick(_: MouseEvent<HTMLButtonElement>) {
     handlePopoverStateChange('open');
   }
   function handleClose() {

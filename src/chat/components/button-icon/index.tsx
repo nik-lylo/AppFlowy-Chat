@@ -1,7 +1,6 @@
 import { ComponentProps, FC, ReactNode } from 'react';
 import clsx from 'clsx';
 import TooltipDefault from '../tooltip-default';
-import { useTranslation } from '@/i18n';
 
 interface Props extends ComponentProps<'button'> {
   icon: ReactNode;
@@ -25,9 +24,8 @@ const ButtonBarAI: FC<Props> = ({
   children,
   ...rest
 }) => {
-  const { t } = useTranslation();
   return (
-    <TooltipDefault title={t(tooltip)}>
+    <TooltipDefault title={tooltip}>
       <button
         className={clsx([
           className,

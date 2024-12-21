@@ -166,7 +166,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
             <ButtonIcon
               className='relative'
               icon={<IconClip />}
-              tooltip='input.button.attach'
+              tooltip={t('input.button.attach')}
               disabled={isGenerating}
               colorClass='text-ch-icon'
             >

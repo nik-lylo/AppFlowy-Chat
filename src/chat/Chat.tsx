@@ -35,7 +35,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { wait } from '@/chat/utils/common';
 import RelatedQuestionsBlock from './components/related-questions';
 
-interface IProp {
+export interface IProp {
   userAvatar: string | null | undefined;
   workspaceId: string;
   initChatId: string;
@@ -61,7 +61,7 @@ const Chat: FC<IProp> = ({ userAvatar, initChatId, workspaceId }) => {
   const [isInitLoading, setIsInitLoading] = useState<boolean>(true);
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  const chatInputRef = useRef<HTMLInputElement | null>(null);
+  const chatInputRef = useRef<HTMLTextAreaElement | null>(null);
 
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setInputValue(e.target.value);

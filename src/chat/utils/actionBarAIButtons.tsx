@@ -8,6 +8,8 @@ import IconDownload from '@/assets/icons/download.svg?react';
 import { ActionBarAIButtonName, SelectOption } from '@/types';
 import { AIModelOptions } from './aiModelOptions';
 import { FormatTextButtons } from './formatTextButtons';
+import { getI18n } from '@/i18n/config';
+const i18n = getI18n();
 
 export interface ActionBarAIButtonDataDefault<N = string> {
   icon: ReactNode;
@@ -41,20 +43,20 @@ const ActionBarAIButtonsCommon: ActionBarAIButtonData[] = [
   {
     icon: <IconCopy />,
     name: 'copy',
-    tooltip: 'chat.tooltip.copy',
+    tooltip: i18n?.t('tooltip.copy') || '',
     type: 'btn',
   },
   {
     icon: <IconUndo />,
     name: 'try-again',
-    tooltip: 'chat.tooltip.tryAgain',
+    tooltip: i18n?.t('tooltip.tryAgain') || '',
     type: 'btn',
   },
   {
     icon: <IconChangeFont />,
     type: 'btn-popover',
     name: 'change-format',
-    tooltip: 'chat.tooltip.changeFormat',
+    tooltip: i18n?.t('tooltip.changeFormat') || '',
     withDropdownIcon: true,
     optionsData: {
       options: FormatTextButtons,
@@ -65,7 +67,7 @@ const ActionBarAIButtonsCommon: ActionBarAIButtonData[] = [
     type: 'btn-popover',
     icon: <IconAI />,
     name: 'switch-model',
-    tooltip: 'chat.tooltip.switchModel',
+    tooltip: i18n?.t('tooltip.switchModel') || '',
     withDropdownIcon: true,
     optionsData: {
       options: AIModelOptions,
@@ -78,7 +80,7 @@ export const ActionBarAIButtonsLastRes: ActionBarAIButtonData[] =
     {
       icon: <IconDocForward />,
       name: 'add-to-page',
-      tooltip: 'chat.tooltip.addToPage',
+      tooltip: i18n?.t('tooltip.addToPage') || '',
       type: 'btn',
     },
   ]);
@@ -88,6 +90,6 @@ export const ActionBarAIButtonsHoverRes: ActionBarAIButtonData[] =
       type: 'btn',
       icon: <IconDownload />,
       name: 'download',
-      tooltip: 'chat.tooltip.download',
+      tooltip: i18n?.t('tooltip.download') || '',
     },
   ]);
