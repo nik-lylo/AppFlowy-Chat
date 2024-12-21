@@ -1,5 +1,4 @@
 import { Textarea } from '@/components/ui/textarea';
-import ButtonIconSubmit from '../button-icon-submit';
 import IconArrowUp from '@/assets/icons/arrow-up.svg?react';
 import IconStop from '@/assets/icons/stop.svg?react';
 import IconClip from '@/assets/icons/clip.svg?react';
@@ -13,6 +12,7 @@ import { SupportedAttachmentExtensions } from '@appflowy-chat/utils/supportedAtt
 import FilesPreview from '../files-preview';
 import { v4 } from 'uuid';
 import { useTranslation } from '@/i18n';
+import { Button } from '@/components/ui/button';
 
 interface IProps {
   value: string;
@@ -165,11 +165,10 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
           </div>
           <div className='flex items-start gap-2'>
             <ButtonIcon
-              className='relative'
+              className='relative text-ch-icon'
               icon={<IconClip />}
               tooltip={t('input.button.attach')}
               disabled={isGenerating}
-              colorClass='text-ch-icon'
             >
               <input
                 type='file'
@@ -183,20 +182,21 @@ const ChatInput = forwardRef<HTMLTextAreaElement, IProps>(
               />
             </ButtonIcon>
             {isGenerating ? (
-              <ButtonIconSubmit
-                className='text-ch-accent disabled:text-ch-primary-gray'
-                classSize='w-6 h-6'
-                icon={<IconStop className='h-5 w-5' />}
-                type='button'
+              <Button
+                startIcon={<IconStop />}
+                size={'icon'}
+                variant={'ghost'}
+                color={'primary'}
                 onClick={onStop}
               />
             ) : (
-              <ButtonIconSubmit
-                className='text-ch-accent disabled:text-ch-text-disabled'
-                classSize='w-6 h-6'
+              <Button
+                size={'icon'}
+                variant={'ghost'}
                 disabled={value.trim().length < 3}
-                icon={<IconArrowUp className='h-5 w-5' />}
+                startIcon={<IconArrowUp />}
                 type='submit'
+                color={'primary'}
               />
             )}
           </div>

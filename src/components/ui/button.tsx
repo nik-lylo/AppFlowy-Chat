@@ -35,12 +35,12 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
       color: 'default',
-    }
+    },
   },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   color?: 'default' | 'primary' | 'secondary';
@@ -64,7 +64,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };

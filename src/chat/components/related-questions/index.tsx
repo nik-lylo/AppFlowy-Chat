@@ -2,6 +2,7 @@ import { useTranslation } from '@/i18n';
 import IconChat from '@/assets/icons/chat-outlined.svg?react';
 import { FC } from 'react';
 import { RelatedQuestion } from '@/types/ai';
+import { Button } from '@/components/ui/button';
 
 interface IProps {
   relatedQuestions: RelatedQuestion[];
@@ -23,8 +24,9 @@ const RelatedQuestions: FC<IProps> = ({
           </div>
           <div className='flex flex-col gap-1'>
             {relatedQuestions.map((question) => (
-              <button
-                className='hover:bg-ch-fill-hover flex w-fit cursor-pointer items-center gap-2 rounded-lg bg-transparent p-2 transition-colors'
+              <Button
+                variant={'ghost'}
+                className='justify-start'
                 key={question.content}
                 onClick={() => onQuestionClick(question)}
               >
@@ -32,7 +34,7 @@ const RelatedQuestions: FC<IProps> = ({
                 <div className='text-ch-text-title text-sm'>
                   {question.content}
                 </div>
-              </button>
+              </Button>
             ))}
           </div>
         </div>

@@ -1,9 +1,10 @@
-import { ComponentProps, FC, ReactNode } from 'react';
-import clsx from 'clsx';
+import { FC, ReactNode } from 'react';
 
 import { TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import * as React from 'react';
 
-interface Props extends ComponentProps<'button'> {
+interface Props extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
   icon: ReactNode;
   tooltip: string;
   active?: boolean;
@@ -15,11 +16,6 @@ interface Props extends ComponentProps<'button'> {
 
 const ButtonBarAI: FC<Props> = ({
   icon,
-  className = '',
-  iconMainWrapClass,
-  active = false,
-  activeClass = 'bg-ch-fill-hover',
-  colorClass = 'text-ch-primary-gray2',
   tooltip,
   children,
   ...rest
@@ -27,27 +23,15 @@ const ButtonBarAI: FC<Props> = ({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-      <button
-        className={clsx([
-          className,
-          colorClass,
-          'hover:bg-ch-fill-hover disabled:text-ch-text-disabled flex h-6 items-center gap-[1px] rounded-lg p-1 transition-colors disabled:bg-transparent',
-          { [activeClass]: active },
-        ])}
-        type='button'
+      <Button
+        variant={'ghost'}
+        size={'icon'}
+        color={'default'}
+        startIcon={icon}
         {...rest}
       >
-        <div
-          className={clsx(
-            iconMainWrapClass
-              ? iconMainWrapClass
-              : 'h-full w-full [&>svg]:h-4 [&>svg]:w-4'
-          )}
-        >
-          {icon}
-        </div>
         {children && children}
-      </button>
+      </Button>
       </TooltipTrigger>
       <TooltipContent>{tooltip}</TooltipContent>
     </Tooltip>
