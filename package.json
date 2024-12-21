@@ -1,12 +1,12 @@
 {
-  "name": "appflowy-chat",
+  "name": "@appflowyinc/ai-chat",
   "version": "0.0.0",
-  "description": "AppFlowy Web Editor",
+  "description": "AppFlowy Web AI Chat",
   "author": "Appflowy",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AppFlowy-IO/AppFlowy-Web-Editor.git"
+    "url": "https://github.com/AppFlowy-IO/AppFlowy-Chat.git"
   },
   "type": "module",
   "main": "dist/index.js",
