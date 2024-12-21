@@ -1,6 +1,7 @@
 import { ComponentProps, FC, ReactNode } from 'react';
 import clsx from 'clsx';
-import TooltipDefault from '../tooltip-default';
+
+import { TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 
 interface Props extends ComponentProps<'button'> {
   icon: ReactNode;
@@ -24,7 +25,8 @@ const ButtonBarAI: FC<Props> = ({
   ...rest
 }) => {
   return (
-    <TooltipDefault title={tooltip}>
+    <Tooltip>
+      <TooltipTrigger asChild>
       <button
         className={clsx([
           className,
@@ -46,7 +48,9 @@ const ButtonBarAI: FC<Props> = ({
         </div>
         {children && children}
       </button>
-    </TooltipDefault>
+      </TooltipTrigger>
+      <TooltipContent>{tooltip}</TooltipContent>
+    </Tooltip>
   );
 };
 

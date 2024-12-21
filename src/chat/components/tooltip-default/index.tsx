@@ -1,7 +1,6 @@
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { FC, ReactElement } from "react";
@@ -14,12 +13,15 @@ interface IProp {
 
 const TooltipDefault: FC<IProp> = ({ children, title }) => {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipContent>{title}</TooltipContent>
-        <TooltipTrigger>{children}</TooltipTrigger>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipContent>{title}</TooltipContent>
+      <TooltipTrigger asChild>
+        <div>
+          {children}
+        </div>
+
+      </TooltipTrigger>
+    </Tooltip>
   );
 };
 

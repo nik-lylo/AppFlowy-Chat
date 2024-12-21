@@ -96,7 +96,9 @@ const ButtonBarAIPopover: FC<Props> = ({
         </div>
 
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent
+        onOpenAutoFocus={e => e.preventDefault()}
+        onCloseAutoFocus={e => e.preventDefault()}>
         {optionsData.type === 'text' && (
           <div
             id={'simple-popover'}
